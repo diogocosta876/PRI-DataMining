@@ -54,13 +54,16 @@ for index, row in df.iterrows():
 
         driver.get("https://extranet.infarmed.pt/INFOMED-fo/pesquisa-avancada.xhtml")
 
-        input_element = WebDriverWait(driver, 10).until(
+        input_element = WebDriverWait(driver, 2).until(
             EC.element_to_be_clickable((By.ID, "mainForm:medicamento_input"))
         )
         driver.execute_script(f"arguments[0].value = '{medication_name}';", input_element)
 
         driver.execute_script("window.scrollTo(0, 1000)")
-        search_btn = driver.find_element(By.ID, "mainForm:btnDoSearch").click()
+        search_btn = WebDriverWait(driver, 2).until(
+            EC.element_to_be_clickable((By.ID, "mainForm:btnDoSearch"))
+        )
+        search_btn.click()
 
         MAX_RETRIES = 3
         retries = 0
