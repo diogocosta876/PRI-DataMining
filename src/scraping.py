@@ -70,11 +70,12 @@ for index, row in df.iterrows():
 
     while retries < MAX_RETRIES:
         try:
-            medicamento = WebDriverWait(driver, 1).until(
+            medicamento = WebDriverWait(driver, 0.5).until(
                 EC.element_to_be_clickable(
                     (By.ID, "mainForm:dt-medicamentos:0:linkNome")
                 )
             )
+            retries += 1
             medicamento.click()
             break
         except Exception as e:
@@ -88,7 +89,7 @@ for index, row in df.iterrows():
                 continue
 
     try:
-        bula = WebDriverWait(driver, 10).until(
+        bula = WebDriverWait(driver, 1).until(
             EC.element_to_be_clickable(
                 (By.ID, "detalheMedFiTopForm:detalheMedTopFiIcon")
             )
@@ -110,8 +111,12 @@ for index, row in df.iterrows():
         print(f"Failed to click leaflet: {medication_name}")
         error_count += 1
         continue
-
-    download_bula(pdf_url)
+    
+    try:
+        download_bula(pdf_url)
+    except Exception as e:
+        print("error downloading leaflet")
+        continue
 
     # get rest of meta data
     substanciaAtiva = ("j_idt107", "j_idt108")
@@ -184,6 +189,7 @@ for index, row in df.iterrows():
     df.at[index, "Lowest PVP"] = min_price
 
     if index % 50 == 0:
+        print("outputting to excel")
         df.to_excel(input_file_path, index=False)
 
 
