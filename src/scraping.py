@@ -43,6 +43,14 @@ downloaded_count = 0
 for index, row in df.iterrows():
     medication_name = row["Product name"]
 
+    file_name = f"{medication_name}.pdf"
+    file_path = os.path.join(download_dir, file_name)
+
+    # Check if the PDF is already downloaded
+    if os.path.exists(file_path):
+        print(f"PDF for {medication_name} already downloaded, skipping...")
+        continue
+
     driver.get("https://extranet.infarmed.pt/INFOMED-fo/pesquisa-avancada.xhtml")
 
     input_element = WebDriverWait(driver, 10).until(
