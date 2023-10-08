@@ -44,11 +44,7 @@ for index, row in df.iterrows():
     try:
         medication_name = row["Product name"]
 
-        file_name = f"{medication_name}.pdf"
-        file_path = os.path.join(download_dir, file_name)
-
-        # Check if the Price is already scraped
-        if os.path.exists(file_path):
+        if 'price' in df.columns and not pd.isna(df.at[index, 'price']):
             print(f"Metadata for {medication_name} already scrapped, skipping...")
             continue
 
