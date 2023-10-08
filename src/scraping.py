@@ -54,13 +54,15 @@ for index, row in df.iterrows():
 
         driver.get("https://extranet.infarmed.pt/INFOMED-fo/pesquisa-avancada.xhtml")
 
-        input_element = WebDriverWait(driver, 2).until(
+        input_element = WebDriverWait(driver, 3).until(
             EC.element_to_be_clickable((By.ID, "mainForm:medicamento_input"))
         )
-        driver.execute_script(f"arguments[0].value = '{medication_name}';", input_element)
+        driver.execute_script(
+            f"arguments[0].value = '{medication_name}';", input_element
+        )
 
         driver.execute_script("window.scrollTo(0, 1000)")
-        search_btn = WebDriverWait(driver, 2).until(
+        search_btn = WebDriverWait(driver, 3).until(
             EC.element_to_be_clickable((By.ID, "mainForm:btnDoSearch"))
         )
         search_btn.click()
@@ -68,12 +70,17 @@ for index, row in df.iterrows():
         MAX_RETRIES = 3
         retries = 0
     except Exception as e:
+        print(
+                    f"Failed to click search button: {medication_name}, error count: {error_count}"
+                )
         print(e)
+        error_count += 1
         continue
 
+    next_item_flag = False
     while retries < MAX_RETRIES:
         try:
-            medicamento = WebDriverWait(driver, 0.5).until(
+            medicamento = WebDriverWait(driver, 1).until(
                 EC.element_to_be_clickable(
                     (By.ID, "mainForm:dt-medicamentos:0:linkNome")
                 )
@@ -87,12 +94,15 @@ for index, row in df.iterrows():
                 print(
                     f"Failed to click search result: {medication_name}, error count: {error_count}"
                 )
-                # print(e)
+                print(e)
                 error_count += 1
-                continue
+                next_item_flag = True
+                break
+    if next_item_flag:
+        continue
 
     try:
-        bula = WebDriverWait(driver, 1).until(
+        bula = WebDriverWait(driver, 3).until(
             EC.element_to_be_clickable(
                 (By.ID, "detalheMedFiTopForm:detalheMedTopFiIcon")
             )
@@ -114,7 +124,7 @@ for index, row in df.iterrows():
         print(f"Failed to click leaflet: {medication_name}")
         error_count += 1
         continue
-    
+
     try:
         download_bula(pdf_url)
     except Exception as e:
@@ -153,11 +163,11 @@ for index, row in df.iterrows():
 
     for title_id, value_id in metadata_ids:
         try:
-            title = WebDriverWait(driver, 2).until(
+            title = WebDriverWait(driver, 5).until(
                 EC.element_to_be_clickable((By.ID, title_id))
             )
             try:
-                value = WebDriverWait(driver, 2).until(
+                value = WebDriverWait(driver, 5).until(
                     EC.element_to_be_clickable((By.ID, value_id))
                 )
                 df.at[index, title.text] = value.text
@@ -191,7 +201,7 @@ for index, row in df.iterrows():
     # print(f"lowestprice: {min_price}")
     df.at[index, "Lowest PVP"] = min_price
 
-    if index % 50 == 0:
+    if index % 20 == 0:
         print("outputting to excel")
         df.to_excel(input_file_path, index=False)
 
