@@ -44,7 +44,7 @@ for index, row in df.iterrows():
     try:
         medication_name = row["Product name"]
 
-        if 'price' in df.columns and not pd.isna(df.at[index, 'price']):
+        if "price" in df.columns and pd.notnull(df.at[index, "price"]):
             print(f"Metadata for {medication_name} already scrapped, skipping...")
             continue
 
@@ -184,18 +184,28 @@ for index, row in df.iterrows():
     min_price = 10000000
     for produto_n in range(0, 3):
         try:
-            id = "carousel-tablet:j_idt404:0:j_idt406:" + str(produto_n) + ":j_idt446"
-            min_price = min(
-                min_price,
-                WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.ID, id))),
+            id = f"carousel-tablet:j_idt404:0:j_idt406:{produto_n}:j_idt446"
+            time.sleep(0.5)
+            element = WebDriverWait(driver, 0.2).until(
+                EC.presence_of_element_located((By.ID, id))
             )
+
+            element_text = element.text or element.get_attribute("textContent").strip()
+
+            element_price_str = element_text.replace("€", "").strip()
+            element_price_float = float(element_price_str.replace(",", "."))
+
+            min_price = min(min_price, element_price_float)
+
         except Exception as e:
-            print(e)
+            # print(f"Error type: {type(e).__name__}")
+            #print(f"Error fetching price for product {produto_n} of {medication_name}")
+            #print(e)
             continue
 
-    if min_price == 10000000:
+    if min_price == 10000000 or min_price == "N/A":
         min_price = "N/A"
-    # print(f"lowestprice: {min_price}")
+    #print(f"lowestprice: {min_price}")
     df.at[index, "Lowest PVP"] = min_price
 
     if index % 20 == 0:
