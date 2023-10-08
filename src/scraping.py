@@ -47,9 +47,9 @@ for index, row in df.iterrows():
         file_name = f"{medication_name}.pdf"
         file_path = os.path.join(download_dir, file_name)
 
-        # Check if the PDF is already downloaded
+        # Check if the Price is already scraped
         if os.path.exists(file_path):
-            print(f"PDF for {medication_name} already downloaded, skipping...")
+            print(f"PDF for price for {medication_name} already scrapped, skipping...")
             continue
 
         driver.get("https://extranet.infarmed.pt/INFOMED-fo/pesquisa-avancada.xhtml")
@@ -71,8 +71,8 @@ for index, row in df.iterrows():
         retries = 0
     except Exception as e:
         print(
-                    f"Failed to click search button: {medication_name}, error count: {error_count}"
-                )
+            f"Failed to click search button: {medication_name}, error count: {error_count}"
+        )
         print(e)
         error_count += 1
         continue
@@ -194,6 +194,7 @@ for index, row in df.iterrows():
                 WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.ID, id))),
             )
         except Exception as e:
+            print(e)
             continue
 
     if min_price == 10000000:
