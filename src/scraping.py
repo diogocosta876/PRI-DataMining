@@ -213,4 +213,4 @@ for index, row in df.iterrows():
         df.to_excel(input_file_path, index=False)
 
 
-print(f"Finished scraping with {x} downloads and {error_count} errors")
+print(f"Finished scraping with {downloaded_count} downloads and {error_count} errors")
