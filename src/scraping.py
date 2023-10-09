@@ -40,11 +40,16 @@ driver.set_window_size(1200, 1000)
 error_count = 0
 downloaded_count = 0
 
+if "Lowest PVP" not in df.columns:
+    df["Lowest PVP"] = pd.NA
+    df.to_excel(input_file_path, index=False)
+
+
 for index, row in df.iterrows():
     try:
         medication_name = row["Product name"]
 
-        if "price" in df.columns and pd.notnull(df.at[index, "price"]):
+        if pd.notnull(df.at[index, "Lowest PVP"]):
             print(f"Metadata for {medication_name} already scrapped, skipping...")
             continue
 
@@ -199,16 +204,16 @@ for index, row in df.iterrows():
 
         except Exception as e:
             # print(f"Error type: {type(e).__name__}")
-            #print(f"Error fetching price for product {produto_n} of {medication_name}")
-            #print(e)
+            # print(f"Error fetching price for product {produto_n} of {medication_name}")
+            # print(e)
             continue
 
     if min_price == 10000000 or min_price == "N/A":
-        min_price = "N/A"
-    #print(f"lowestprice: {min_price}")
+        min_price = "Not Available"
+    # print(f"lowestprice: {min_price}")
     df.at[index, "Lowest PVP"] = min_price
 
-    if index % 20 == 0:
+    if index % 30 == 0 and downloaded_count != 0:
         print("outputting to excel")
         df.to_excel(input_file_path, index=False)
 
