@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"><head id="j_idt2"><link type="text/css" rel="stylesheet" href="/INFOMED-fo/javax.faces.resource/fa/font-awesome.css.xhtml?ln=primefaces&amp;v=7.0" /><link type="text/css" rel="stylesheet" href="/INFOMED-fo/javax.faces.resource/components.css.xhtml;jsessionid=5K6E4sZAt1gnNJDeDSydmdm_M9hcmkX50l2izS0q.fo2?ln=primefaces&amp;v=7.0" /><script type="text/javascript" src="/INFOMED-fo/javax.faces.resource/jquery/jquery.js.xhtml;jsessionid=5K6E4sZAt1gnNJDeDSydmdm_M9hcmkX50l2izS0q.fo2?ln=primefaces&amp;v=7.0"></script><script type="text/javascript" src="/INFOMED-fo/javax.faces.resource/jquery/jquery-plugins.js.xhtml;jsessionid=5K6E4sZAt1gnNJDeDSydmdm_M9hcmkX50l2izS0q.fo2?ln=primefaces&amp;v=7.0"></script><script type="text/javascript" src="/INFOMED-fo/javax.faces.resource/core.js.xhtml;jsessionid=5K6E4sZAt1gnNJDeDSydmdm_M9hcmkX50l2izS0q.fo2?ln=primefaces&amp;v=7.0"></script><script type="text/javascript" src="/INFOMED-fo/javax.faces.resource/components.js.xhtml;jsessionid=5K6E4sZAt1gnNJDeDSydmdm_M9hcmkX50l2izS0q.fo2?ln=primefaces&amp;v=7.0"></script><link type="text/css" rel="stylesheet" href="/INFOMED-fo/javax.faces.resource/infomed.css.xhtml;jsessionid=5K6E4sZAt1gnNJDeDSydmdm_M9hcmkX50l2izS0q.fo2?ln=styles" media="all" /><script type="text/javascript" src="/INFOMED-fo/javax.faces.resource/jsf.js.xhtml;jsessionid=5K6E4sZAt1gnNJDeDSydmdm_M9hcmkX50l2izS0q.fo2?ln=javax.faces"></script><script type="text/javascript">if(window.PrimeFaces){PrimeFaces.settings.locale='pt';}</script>
+
+	<title>Infomed</title>
+
+	<meta name="description" content="A Infomed é atualizada diariamente a partir da base de dados interna do Infarmed. Este Instituto desenvolve todos os esforços para garantir a atualização e correção desta informação, mas podem ocorrer erros pontuais. O Infarmed não pode ser responsabilizado por quaisquer dados online que não estejam claros, corretos ou atualizados. Se detetar algum erro na Infomed, por favor, informe-nos." />
+	<meta name="keywords" content="Infomed, Infarmed, SNS, CNFT, DGS, NOCs, informação, Medicamento, Grupos Terapêuticos, Patologias, utente, igualdade de acesso aos medicamentos, saúde" />
+	<meta name="robots" content="index, follow" />
+
+	
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<meta name="msapplication-TileColor" content="#ffffff" />
+	<meta name="msapplication-TileImage" content="images/favicon/ms-icon-144x144.png" />
+	<meta name="theme-color" content="#ffffff" />
+
+
+	
+	<link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css" />
+
+	
+	<link rel="stylesheet" type="text/css" href="styles/all.min.css" />
+
+	
+	<link rel="stylesheet" type="text/css" href="styles/primeicons.css" />
+
+	
+	<link rel="stylesheet" type="text/css" href="styles/infomed.css" />
+
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" />
+
+	<link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-icon-57x57.png" />
+	<link rel="apple-touch-icon" sizes="60x60" href="images/favicon/apple-icon-60x60.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="images/favicon/apple-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="76x76" href="images/favicon/apple-icon-76x76.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="images/favicon/apple-icon-114x114.png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="images/favicon/apple-icon-120x120.png" />
+	<link rel="apple-touch-icon" sizes="144x144" href="images/favicon/apple-icon-144x144.png" />
+	<link rel="apple-touch-icon" sizes="152x152" href="images/favicon/apple-icon-152x152.png" />
+	<link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-icon-180x180.png" />
+	<link rel="icon" type="image/png" sizes="192x192" href="images/favicon/android-icon-192x192.png" />
+	<link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png" />
+	<link rel="icon" type="image/png" sizes="96x96" href="images/favicon/favicon-96x96.png" />
+	<link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png" />
+	<link rel="manifest" href="images/favicon/manifest.json" />
+
+	<script type="text/javascript" src="js/popper.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/modernizr-custom.js"></script>
+	<script type="text/javascript" src="js/breadcrumbs-movement.js"></script>
+	<script type="text/javascript" src="https://extranet.infarmed.pt/web/js/web-template/cookies.js"></script>
+        <script type="text/javascript" src="https://srvwebmonit.infarmed.pt/js/infomed/INFOMED-wa.js"></script><div id="waitingBlocker" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container bg-transparent-10"><div class="ui-dialog-content ui-widget-content" id="waitingBlocker_content">
+		<div style="text-align: center">
+			<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
+			<br /> <br /> <br /> <br /> <br /> <img src="./images/loading-400px.gif" alt="loading" height="80px" /><br />
+		</div></div></div><script id="waitingBlocker_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","statusDialog",{id:"waitingBlocker",draggable:false,resizable:false,modal:true});});</script>
+
+	
+	<link rel="stylesheet" type="text/css" href="styles/print.css" media="print" />
+	<link rel="stylesheet" type="text/css" href="styles/precos.css" media="all" /></head><body>
+
+	<a class="skip-to-content-link" href="#panel-detalhes">
+		Voltar para o conteúdo </a><div id="neighborhoodPopup" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container" style="background-color: #e1e1e175;text-align: -webkit-center; min-block-size: -webkit-fill-available;"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="neighborhoodPopup_title" class="ui-dialog-title"><span id="precosValidosDialogHeader">Preços Válidos</span></span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" aria-label="Close"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content" id="neighborhoodPopup_content"><html lang="pt" xmlns="http://www.w3.org/1999/xhtml"><head id="j_idt14"><link type="text/css" rel="stylesheet" href="/INFOMED-fo/javax.faces.resource/fa/font-awesome.css.xhtml?ln=primefaces&amp;v=7.0" /><script type="text/javascript">if(window.PrimeFaces){PrimeFaces.settings.locale='pt';}</script></head><body>
+
+	<div style="background-color: white;">
+
+		<br />
+
+		<div class="ui-dialog-content ui-widget-content ui-df-content"><div id="j_idt18" class="ui-panelgrid ui-widget panelColumnsPrecosValidos"><div id="j_idt18_content" class="ui-panelgrid-content ui-widget-content ui-grid ui-grid-responsive"><div class="ui-g"><div class="ui-panelgrid-cell p-col-12 p-md-6 p-xl-6 precos-validos-label ui-g-12 ui-md-6"><label id="j_idt19" class="ui-outputlabel ui-widget" style="text-shadow: none;">Nome do Medicamento:</label></div><div class="ui-panelgrid-cell p-col-12 p-md-6 p-xl-6 precos-validos-info ui-g-12 ui-md-6"><label id="j_idt20" class="ui-outputlabel ui-widget" style="float: left !important; text-align: left !important; vertical-align: top; padding-left: 0px; color: #444;"></label></div></div><div class="ui-g"><div class="ui-panelgrid-cell p-col-12 p-md-6 p-xl-6 precos-validos-label ui-g-12 ui-md-6"><label id="j_idt21" class="ui-outputlabel ui-widget" style="text-shadow: none;">Número de Registo:</label></div><div class="ui-panelgrid-cell p-col-12 p-md-6 p-xl-6 precos-validos-info ui-g-12 ui-md-6"><label id="j_idt22" class="ui-outputlabel ui-widget" style="float: left !important; text-align: left !important; vertical-align: top; padding-left: 0px; color: #444;"></label></div></div></div></div>
+
+			<br /><span id="tab1Precos_summary" class="ui-datatable-summary">Preços PVP</span><div id="tab1Precos" class="ui-datatable ui-widget precos-validos-datatable" style="width: 90%;margin-right: auto;margin-left: auto;"><div class="ui-datatable-tablewrapper"><table role="grid" summary="Preços PVP" aria-describedby="tab1Precos_summary"><thead id="tab1Precos_head"><tr role="row"><th id="tab1Precos:j_idt24" class="ui-state-default" role="columnheader" aria-label="Preço (PVP)" scope="col"><span class="ui-column-title">Preço (PVP)</span></th><th id="tab1Precos:j_idt26" class="ui-state-default" role="columnheader" aria-label="Data de Início" scope="col"><span class="ui-column-title">Data de Início</span></th></tr></thead><tbody id="tab1Precos_data" class="ui-datatable-data ui-widget-content"><tr class="ui-widget-content ui-datatable-empty-message"><td colspan="2">Sem preços válidos.</td></tr></tbody></table></div></div><script id="tab1Precos_s" type="text/javascript">$(function(){PrimeFaces.cw("DataTable","widget_tab1Precos",{id:"tab1Precos",groupColumnIndexes:[],disableContextMenuIfEmpty:false});});</script>
+				
+				<br /> <br /> <br /><span id="tab2Precos_summary" class="ui-datatable-summary">Preços Notificados</span><div id="tab2Precos" class="ui-datatable ui-widget precos-validos-datatable" style="width: 90%;margin-right: auto;margin-left: auto;"><div class="ui-datatable-tablewrapper"><table role="grid" summary="Preços Notificados" aria-describedby="tab2Precos_summary"><thead id="tab2Precos_head"><tr role="row"><th id="tab2Precos:j_idt30" class="ui-state-default" role="columnheader" aria-label="" scope="col"><span class="ui-column-title"></span></th><th id="tab2Precos:j_idt32" class="ui-state-default" role="columnheader" aria-label="Data de Início" scope="col"><span class="ui-column-title">Data de Início</span></th><th id="tab2Precos:j_idt34" class="ui-state-default" role="columnheader" aria-label="Data de Fim" scope="col"><span class="ui-column-title">Data de Fim</span></th></tr></thead><tbody id="tab2Precos_data" class="ui-datatable-data ui-widget-content"><tr class="ui-widget-content ui-datatable-empty-message"><td colspan="3">Sem preços válidos.</td></tr></tbody></table></div></div><script id="tab2Precos_s" type="text/javascript">$(function(){PrimeFaces.cw("DataTable","widget_tab2Precos",{id:"tab2Precos",groupColumnIndexes:[],disableContextMenuIfEmpty:false});});</script>
+				<br /> <br /> <br /><span id="tab3Precos_summary" class="ui-datatable-summary">Preços Válidos</span><div id="tab3Precos" class="ui-datatable ui-widget precos-validos-datatable" style="width: 90%;margin-right: auto;margin-left: auto;"><div class="ui-datatable-tablewrapper"><table role="grid" summary="Preços Válidos" aria-describedby="tab3Precos_summary"><thead id="tab3Precos_head"><tr role="row"><th id="tab3Precos:j_idt38" class="ui-state-default" role="columnheader" aria-label="" scope="col"><span class="ui-column-title"></span></th><th id="tab3Precos:j_idt40" class="ui-state-default" role="columnheader" aria-label="Data de Início" scope="col"><span class="ui-column-title">Data de Início</span></th><th id="tab3Precos:j_idt42" class="ui-state-default" role="columnheader" aria-label="Data de Fim" scope="col"><span class="ui-column-title">Data de Fim</span></th></tr></thead><tbody id="tab3Precos_data" class="ui-datatable-data ui-widget-content"><tr class="ui-widget-content ui-datatable-empty-message"><td colspan="3">Sem preços válidos.</td></tr></tbody></table></div></div><script id="tab3Precos_s" type="text/javascript">$(function(){PrimeFaces.cw("DataTable","widget_tab3Precos",{id:"tab3Precos",groupColumnIndexes:[],disableContextMenuIfEmpty:false});});</script>
+				<br /> <br /> <br />
+
+			
+		</div>
+
+	</div>
+
+
+	<script type="text/javascript">
+	//<![CDATA[
+		$(document).ready(function() {
+			$(".ui-icon-closethick").removeClass().addClass("fa fa-fw fa-close");
+		});
+
+		//]]>   
+	</script></body>
+</html></div></div><script id="neighborhoodPopup_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","dlgneighborhood",{id:"neighborhoodPopup",resizable:false,modal:true,position:"center",onHide:function(){ovBodyAuto();},onShow:function(){ovBodyHidden();}});});</script>
+		<div class="slave">
+			<div id="slave" class="slave jumbotron jumbotron-fluid">
+				<div class="container">
+					<div class="row" style="display: ruby;">
+						<div class="col-8" style="display: inline-block;">
+								<a href="index.xhtml" title="Home"> <img src="images/infomed-logo-cropped.png" height="100px" title="Infomed" class="img-responsive infomed-logo" alt="Infomed" />
+								</a>
+
+						</div>
+						<div class="col-4" style="vertical-align: top; display: inline-block;">
+							<div id="languages" class="languages-div text-right mt-2">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="breadcrumbs" class="breadcrumbs breadcrumbs-alto">
+			<div role="contentinfo" class="separator">
+				<div class="container-full">
+					<div class="homepageSeparator">
+						<div class="container">
+							<div class="p-10">
+									<div style="float: right;">2023-10-10 19:37:22</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		
+
+
+
+		<div class="container"><div id="panel-sem-documentos" class="ui-panel ui-widget ui-widget-content ui-corner-all" data-widget="widget_panel_sem_documentos"><div id="panel-sem-documentos_content" class="ui-panel-content ui-widget-content">
+			
+				<div class="container">
+					<h1>Ocorreu um erro</h1>
+						<div class="card-header" data-toggle="collapse" aria-expanded="true" aria-controls="collapseOne" href="#collapseOne">
+							Página não encontrada. Volte à <a href="index.xhtml" title="Home">página inicial</a>.
+							<br />
+							Se o erro persistir, por favor contacte o <a href="mailto:cimi@infarmed.pt">Infarmed</a>.
+						</div>
+						<div>
+							
+						</div>
+				</div></div></div><script id="panel-sem-documentos_s" type="text/javascript">$(function(){PrimeFaces.cw("Panel","widget_panel_sem_documentos",{id:"panel-sem-documentos"});});</script>
+
+
+		</div>
+
+		<br />
+		<br />
+
+		<script type="text/javascript" src="js/detalhes-js.js"></script>
+		<script>
+			function updateInitialFooterPosition(){
+				if($( window ).height() > $('body').height()){
+					$('#footer-div').css("position","fixed");
+				} else {
+					$('#footer-div').css("position","");
+				}	
+			}
+			$(document).ready(function() {
+				updateInitialFooterPosition();
+			});
+		</script>
+	
+	<div id="cookiesBanner" class="infarmed-cookies-banner">
+	    <div>
+	        <label id="cookiesDisclaimer"></label>
+	        <button id="cookiesButton" type="button" role="button" aria-disabled="false" onclick="infarmed.cookies.accept('cookiesBanner'); return false;">
+	            <span></span>
+	        </button>
+	    </div>
+	</div>
+
+	<script type="text/javascript">
+	    infarmed.cookies.showBanner('cookiesBanner', 'pt');
+	</script>
+
+		<div class="show-footer-pc">
+
+	<div id="footer-div" style="bottom: 0px; left: 0px; right: 0px;">
+		<div role="contentinfo" class="separator">
+			<div class="container-full">
+				<div class="homepageSeparator"></div>
+			</div>
+		</div>
+
+
+		<a href="#" id="back-to-top" title="Back to top"> <em class="mt-2 fa fa-arrow-up"></em>
+		</a>
+
+		<div role="contentinfo" class="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm">
+						<div class="text-center footer-text font-size-12" style="padding: 5px 0px;">A <strong>Infomed</strong> é a base de dados nacional de medicamentos de uso humano e destina-se a todos os cidadãos.<br>Para que esta base de dados seja para todos, é fundamental a sua constante evolução. Envie-nos as suas <a id="sugestoesFooter" href="mailto:cimi@infarmed.pt?subject=Sugestões Infomed">sugestões</a>.
+						</div>
+					</div>
+				</div>
+
+				<div class="row" style="text-align: center;">
+
+					<div class="col-md-2 col-sm-0"></div>
+
+					<div class="col-md-8 col-sm-12" style="display: inline-block;">
+						<div class="row img-row">
+
+							<div class="col-md-3 col-sm-3 col-3 text-center div-img-row" style="height: 55px; float: left;">
+								<a href="https://www.sns.gov.pt/" target="_blank"> 
+									<img src="images/footer-sns.png" style="max-height: 68%; padding-top: 11px;" class="img-fluid img-logo img-sns" alt="Serviço Nacional de Saúde" title="Serviço Nacional de Saúde" />
+								</a>
+							</div>
+
+							<div class="col-md-3 col-sm-3 col-3 text-center div-img-row" style="height: 55px; float: left;">
+								<a href="https://www.infarmed.pt/" target="_blank"> 
+									<img src="images/footer-infarmed.png" class="img-fluid img-logo" alt="Infarmed" title="Infarmed" />
+								</a>
+							</div>
+
+							<div class="col-md-3 col-sm-3 col-3 text-center div-img-row" style="height: 55px; float: left;">
+								<a href="https://www.infarmed.pt/web/infarmed/submissaoram" target="_blank"> 
+									<img src="images/footer-pram.png" class="img-fluid img-logo" alt="Portal RAM" title="Portal RAM" />
+								</a>
+							</div>
+							
+							<div class="col-md-3 col-sm-3 col-3 text-center div-img-row" style="height: 55px; float: left;">
+								<a href="https://www.infarmed.pt/web/infarmed/servicos-on-line/pesquisa-do-medicamento" target="_blank"> 
+									<img src="images/footer-pmedicamento.png" style="max-height: 70%; padding-top: 4px; margin-top: 2px;" class="img-fluid img-logo" alt="Saiba o preço dos medicamentos" title="Saiba o preço dos medicamentos" />
+								</a>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="col-md-2 col-sm-0"></div>
+
+				</div>
+
+
+
+			</div>
+		</div>
+	</div>
+
+
+	
+	<script type="text/javascript">
+
+	$(function(){
+
+		if ($('#back-to-top').length) {
+		    var scrollTrigger = 10, // px
+		        backToTop = function () {
+		            var scrollTop = $(window).scrollTop();
+		            if (scrollTop > scrollTrigger) {
+		                $('#back-to-top').addClass('show');
+		            } else {
+		                $('#back-to-top').removeClass('show');
+		            }
+		        };
+		    backToTop();
+		    $(window).on('scroll', function () {
+		        backToTop();
+		    });
+		    $('#back-to-top').on('click', function (e) {
+		        e.preventDefault();
+		        $('html,body').animate({
+		            scrollTop: 0
+		        }, 700);
+		    });
+		}
+
+
+		$(window).resize(function () {
+			   $('.ui-dialog').css({
+			        'width': $(window).width(),
+			        'height': $(window).height(),
+			        'top':'0px',
+			        'left': '0px'
+			   });
+			}).resize(); 
+
+
+		// $('.ui-dialog').show();
+
+
+})
+	</script>
+		</div>
+		<div class="show-footer-mobile">
+
+	<div id="footer-mobile-div" style="bottom: 0px; left: 0px; right: 0px;">
+		<div role="contentinfo" class="separator">
+			<div class="container-full">
+				<div class="homepageSeparator"></div>
+			</div>
+		</div>
+
+
+		<a href="#" id="back-to-top-mobile" title="Back to top"> <em class="mt-2 fa fa-arrow-up"></em>
+		</a>
+
+		<div role="contentinfo" class="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm">
+						<div class="text-center footer-text font-size-12" style="padding: 5px 0px;">A <strong>Infomed</strong> é a base de dados nacional de medicamentos de uso humano e destina-se a todos os cidadãos.<br>Para que esta base de dados seja para todos, é fundamental a sua constante evolução. Envie-nos as suas <a id="sugestoesFooter" href="mailto:cimi@infarmed.pt?subject=Sugestões Infomed">sugestões</a>.
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+
+					<div class="col-md-2 col-sm-0"></div>
+
+					<div class="col-md-8 col-sm-12">
+						<div class="row img-row">
+
+							<div class="col-md-4 col-sm-4 col-4 text-center div-img-row" style="height: 40px;">
+								<a href="https://www.sns.gov.pt/" target="_blank"> 
+									<img src="images/footer-sns.png" style="max-height: 68%; padding-top: 11px;" class="img-fluid img-logo img-sns" alt="Serviço Nacional de Saúde" title="Serviço Nacional de Saúde" />
+								</a>
+							</div>
+
+							<div class="col-md-4 col-sm-4 col-4 text-center div-img-row" style="height: 40px;">
+								<a href="https://www.infarmed.pt/" target="_blank"> 
+									<img src="images/footer-infarmed.png" class="img-fluid img-logo" alt="Infarmed" title="Infarmed" />
+								</a>
+							</div>
+
+							<div class="col-md-4 col-sm-4 col-4 text-center div-img-row" style="height: 40px;">
+								<a href="https://www.infarmed.pt/web/infarmed/submissaoram" target="_blank"> 
+									<img src="images/footer-pram.png" class="img-fluid img-logo" alt="Portal RAM" title="Portal RAM" />
+								</a>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="col-md-2 col-sm-0"></div>
+
+				</div>
+
+
+
+			</div>
+		</div>
+	</div>
+
+
+	
+	<script type="text/javascript">
+
+	$(function(){
+
+		if ($('#back-to-top-mobile').length) {
+		    var scrollTrigger = 10, // px
+		        backToTop = function () {
+		            var scrollTop = $(window).scrollTop();
+		            if (scrollTop > scrollTrigger) {
+		                $('#back-to-top-mobile').addClass('show');
+		            } else {
+		                $('#back-to-top-mobile').removeClass('show');
+		            }
+		        };
+		    backToTop();
+		    $(window).on('scroll', function () {
+		        backToTop();
+		    });
+		    $('#back-to-top-mobile').on('click', function (e) {
+		        e.preventDefault();
+		        $('html,body').animate({
+		            scrollTop: 0
+		        }, 700);
+		    });
+		}
+
+
+		$(window).resize(function () {
+			   $('.ui-dialog').css({
+			        'width': $(window).width(),
+			        'height': $(window).height(),
+			        'top':'0px',
+			        'left': '0px'
+			   });
+			}).resize(); 
+
+
+		// $('.ui-dialog').show();
+
+
+})
+	</script>
+		</div></body>
+</html>
