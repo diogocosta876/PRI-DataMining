@@ -34,7 +34,19 @@ search_url = "https://extranet.infarmed.pt/INFOMED-fo/pesquisa-avancada.xhtml"
 download_dir = "downloaded_pdfs"
 os.makedirs(download_dir, exist_ok=True)
 
-driver = webdriver.Chrome()
+# set location using os.path.join or set it manually if needed...
+path_loc = os.path.join(os.getcwd(), "downloaded_pdfs")
+options = webdriver.ChromeOptions()
+chrome_prefs = {
+    "download.prompt_for_download": False,
+    "plugins.always_open_pdf_externally": True,
+    "download.open_pdf_in_system_reader": False,
+    "profile.default_content_settings.popups": 0,
+    # add location preference...
+    "download.default_directory": path_loc
+}
+options.add_experimental_option("prefs", chrome_prefs)
+driver = webdriver.Chrome( options=options)
 driver.set_window_size(1200, 1000)
 
 error_count = 0
@@ -95,7 +107,7 @@ for index, row in df.iterrows():
                 print(
                     f"Failed to click search result: {medication_name}, error count: {error_count}"
                 )
-                print(e)
+                #print(e)
                 error_count += 1
                 next_item_flag = True
                 break
@@ -109,27 +121,31 @@ for index, row in df.iterrows():
             )
         )
 
+        existing_files = set(os.listdir(path_loc))
+                
         bula.click()
+        time.sleep(1)
+        
+        new_file = None
+        while new_file is None:
+            current_files = set(os.listdir(path_loc))
+            new_files = current_files - existing_files
+            if new_files:
+                new_file = new_files.pop()
+            else:
+                time.sleep(1) 
+                
+        desired_name = f"{medication_name}.pdf"
+        old_path = os.path.join(path_loc, new_file)
+        new_path = os.path.join(path_loc, desired_name)
 
-        pdf_url = driver.current_url
-
-        # New tabs will be the last object in window_handles
-        driver.switch_to.window(driver.window_handles[-1])
-
-        driver.close()
-
-        # switch to the main window
-        driver.switch_to.window(driver.window_handles[0])
+        os.rename(old_path, new_path)
+        
+        time.sleep(1)
 
     except Exception as e:
         print(f"Failed to click leaflet: {medication_name}")
         error_count += 1
-        continue
-
-    try:
-        download_bula(pdf_url)
-    except Exception as e:
-        print("error downloading leaflet")
         continue
 
     # get rest of meta data
