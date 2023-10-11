@@ -140,8 +140,8 @@ for index, row in df.iterrows():
         new_path = os.path.join(path_loc, desired_name)
 
         os.rename(old_path, new_path)
-        
-        time.sleep(1)
+        downloaded_count += 1
+        print(f"Successfull Downloads: {downloaded_count}")
 
     except Exception as e:
         print(f"Failed to click leaflet: {medication_name}")
@@ -229,7 +229,7 @@ for index, row in df.iterrows():
     # print(f"lowestprice: {min_price}")
     df.at[index, "Lowest PVP"] = min_price
 
-    if index % 30 == 0 and downloaded_count != 0:
+    if index % 30 == 0 and downloaded_count != 0 or index == len(df) - 1:
         print("outputting to excel")
         df.to_excel(input_file_path, index=False)
 
