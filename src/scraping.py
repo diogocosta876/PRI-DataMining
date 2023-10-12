@@ -34,36 +34,63 @@ search_url = "https://extranet.infarmed.pt/INFOMED-fo/pesquisa-avancada.xhtml"
 download_dir = "downloaded_pdfs"
 os.makedirs(download_dir, exist_ok=True)
 
-driver = webdriver.Chrome()
+# set location using os.path.join or set it manually if needed...
+path_loc = os.path.join(os.getcwd(), "downloaded_pdfs")
+options = webdriver.ChromeOptions()
+chrome_prefs = {
+    "download.prompt_for_download": False,
+    "plugins.always_open_pdf_externally": True,
+    "download.open_pdf_in_system_reader": False,
+    "profile.default_content_settings.popups": 0,
+    # add location preference...
+    "download.default_directory": path_loc
+}
+options.add_experimental_option("prefs", chrome_prefs)
+driver = webdriver.Chrome( options=options)
 driver.set_window_size(1200, 1000)
 
 error_count = 0
 downloaded_count = 0
 
+if "Lowest PVP" not in df.columns:
+    df["Lowest PVP"] = pd.NA
+    df.to_excel(input_file_path, index=False)
+
+
 for index, row in df.iterrows():
-    medication_name = row["Product name"]
+    try:
+        medication_name = row["Product name"]
 
-    file_name = f"{medication_name}.pdf"
-    file_path = os.path.join(download_dir, file_name)
+        if pd.notnull(df.at[index, "Lowest PVP"]):
+            print(f"Metadata for {medication_name} already scrapped, skipping...")
+            continue
 
-    # Check if the PDF is already downloaded
-    if os.path.exists(file_path):
-        print(f"PDF for {medication_name} already downloaded, skipping...")
+        driver.get("https://extranet.infarmed.pt/INFOMED-fo/pesquisa-avancada.xhtml")
+
+        input_element = WebDriverWait(driver, 3).until(
+            EC.element_to_be_clickable((By.ID, "mainForm:medicamento_input"))
+        )
+        driver.execute_script(
+            f"arguments[0].value = '{medication_name}';", input_element
+        )
+
+        driver.execute_script("window.scrollTo(0, 1000)")
+        search_btn = WebDriverWait(driver, 3).until(
+            EC.element_to_be_clickable((By.ID, "mainForm:btnDoSearch"))
+        )
+        search_btn.click()
+
+        MAX_RETRIES = 3
+        retries = 0
+    except Exception as e:
+        print(
+            f"Failed to click search button: {medication_name}, error count: {error_count}"
+        )
+        print(e)
+        error_count += 1
         continue
 
-    driver.get("https://extranet.infarmed.pt/INFOMED-fo/pesquisa-avancada.xhtml")
-
-    input_element = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.ID, "mainForm:medicamento_input"))
-    )
-    driver.execute_script(f"arguments[0].value = '{medication_name}';", input_element)
-
-    driver.execute_script("window.scrollTo(0, 1000)")
-    search_btn = driver.find_element(By.ID, "mainForm:btnDoSearch").click()
-
-    MAX_RETRIES = 3
-    retries = 0
-
+    next_item_flag = False
     while retries < MAX_RETRIES:
         try:
             medicamento = WebDriverWait(driver, 1).until(
@@ -71,6 +98,7 @@ for index, row in df.iterrows():
                     (By.ID, "mainForm:dt-medicamentos:0:linkNome")
                 )
             )
+            retries += 1
             medicamento.click()
             break
         except Exception as e:
@@ -79,35 +107,46 @@ for index, row in df.iterrows():
                 print(
                     f"Failed to click search result: {medication_name}, error count: {error_count}"
                 )
-                # print(e)
+                #print(e)
                 error_count += 1
-                continue
+                next_item_flag = True
+                break
+    if next_item_flag:
+        continue
 
     try:
-        bula = WebDriverWait(driver, 10).until(
+        bula = WebDriverWait(driver, 3).until(
             EC.element_to_be_clickable(
                 (By.ID, "detalheMedFiTopForm:detalheMedTopFiIcon")
             )
         )
 
+        existing_files = set(os.listdir(path_loc))
+                
         bula.click()
+        time.sleep(1)
+        
+        new_file = None
+        while new_file is None:
+            current_files = set(os.listdir(path_loc))
+            new_files = current_files - existing_files
+            if new_files:
+                new_file = new_files.pop()
+            else:
+                time.sleep(1) 
+                
+        desired_name = f"{medication_name}.pdf"
+        old_path = os.path.join(path_loc, new_file)
+        new_path = os.path.join(path_loc, desired_name)
 
-        pdf_url = driver.current_url
-
-        # New tabs will be the last object in window_handles
-        driver.switch_to.window(driver.window_handles[-1])
-
-        driver.close()
-
-        # switch to the main window
-        driver.switch_to.window(driver.window_handles[0])
+        os.rename(old_path, new_path)
+        downloaded_count += 1
+        print(f"Successfull Downloads: {downloaded_count}")
 
     except Exception as e:
         print(f"Failed to click leaflet: {medication_name}")
         error_count += 1
         continue
-
-    download_bula(pdf_url)
 
     # get rest of meta data
     substanciaAtiva = ("j_idt107", "j_idt108")
@@ -141,11 +180,11 @@ for index, row in df.iterrows():
 
     for title_id, value_id in metadata_ids:
         try:
-            title = WebDriverWait(driver, 2).until(
+            title = WebDriverWait(driver, 5).until(
                 EC.element_to_be_clickable((By.ID, title_id))
             )
             try:
-                value = WebDriverWait(driver, 2).until(
+                value = WebDriverWait(driver, 5).until(
                     EC.element_to_be_clickable((By.ID, value_id))
                 )
                 df.at[index, title.text] = value.text
@@ -166,21 +205,33 @@ for index, row in df.iterrows():
     min_price = 10000000
     for produto_n in range(0, 3):
         try:
-            id = "carousel-tablet:j_idt404:0:j_idt406:" + str(produto_n) + ":j_idt446"
-            min_price = min(
-                min_price,
-                WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.ID, id))),
+            id = f"carousel-tablet:j_idt404:0:j_idt406:{produto_n}:j_idt446"
+            time.sleep(0.5)
+            element = WebDriverWait(driver, 0.2).until(
+                EC.presence_of_element_located((By.ID, id))
             )
+
+            element_text = element.text or element.get_attribute("textContent").strip()
+
+            element_price_str = element_text.replace("€", "").strip()
+            element_price_float = float(element_price_str.replace(",", "."))
+
+            min_price = min(min_price, element_price_float)
+
         except Exception as e:
+            # print(f"Error type: {type(e).__name__}")
+            # print(f"Error fetching price for product {produto_n} of {medication_name}")
+            # print(e)
             continue
 
-    if min_price == 10000000:
-        min_price = "N/A"
+    if min_price == 10000000 or min_price == "N/A":
+        min_price = "Not Available"
     # print(f"lowestprice: {min_price}")
     df.at[index, "Lowest PVP"] = min_price
 
-    if index % 50 == 0:
+    if index % 30 == 0 and downloaded_count != 0 or index == len(df) - 1:
+        print("outputting to excel")
         df.to_excel(input_file_path, index=False)
 
 
-print(f"Finished scraping with {x} downloads and {error_count} errors")
+print(f"Finished scraping with {downloaded_count} downloads and {error_count} errors")
