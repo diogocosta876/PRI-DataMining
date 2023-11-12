@@ -5,13 +5,17 @@ import re
 
 def fetchMedicineData(pdf_filename):
     def extract_text_from_pdf(pdf_filename):
-        with pdfplumber.open(pdf_filename) as pdf:
-            all_text = ""
-            for page in pdf.pages:
-                text = page.extract_text()
-                if text:
-                    all_text += text
-        return all_text
+        try:
+            with pdfplumber.open(pdf_filename) as pdf:
+                all_text = ""
+                for page in pdf.pages:
+                    text = page.extract_text()
+                    if text:
+                        all_text += text
+            return all_text
+        except:
+            print(f"ERROR: in extract_text_from_pdf({pdf_filename})" )
+            return ""
 
     def parse_sections(text):
         pattern = re.compile(r"\n(\d+)\.\s(.+?)(?=\n\d+\.|\Z)", re.DOTALL)
