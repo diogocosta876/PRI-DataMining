@@ -1,7 +1,18 @@
 import pandas as pd
 import json
 
+
+def apply_to_column_name(name):
+    name = name.strip()
+    if(name[-1] == ':'):
+        name = name[:-1]
+
+    return name
+
 df = pd.read_excel("data/processed_medication_data.xlsx")
+df.columns = df.columns.to_series().apply(apply_to_column_name)
+print(df.columns)
+
 
 json_data = df.to_json(orient="records")
 

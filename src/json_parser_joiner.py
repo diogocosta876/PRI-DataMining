@@ -5,40 +5,57 @@ def load_structured_data(filename):
     with open(filename, 'r', encoding='utf-8') as file:
         return json.load(file)
 
-def combine_data(structured_data, unstructured_dir):
-    for filename in os.listdir(unstructured_dir):
-        if filename.endswith('.json'):
-            product_name = os.path.splitext(filename)[0]
 
-            with open(os.path.join(unstructured_dir, filename), 'r', encoding='utf-8') as file:
-                unstructured_json = json.load(file)
+finalJson = []
 
-            structured_entry = next((item for item in structured_data if item['Product name'] == product_name), None)
+#Search leaflet with "Product name" or "Active substance" or "Substância Ativa/DCI" 
+def search_leaflet(structured_data, unstructured_data_dir):
 
-            if structured_entry:
-                combined_data = {**structured_entry, **unstructured_json}
+    files_in_directory = os.listdir(unstructured_data_dir)
 
-                with open(os.path.join(unstructured_dir, filename), 'w', encoding='utf-8') as file:
-                    json.dump(combined_data, file, indent=4, ensure_ascii=False)
+    #i = 0 #test code
+    for medicine in structured_data:
+        #if(i==3): break #test code
 
-def combine_all_into_one(unstructured_dir, combined_filename):
-    all_data = []
-    for filename in os.listdir(unstructured_dir):
-        if filename.endswith('.json'):
-            with open(os.path.join(unstructured_dir, filename), 'r', encoding='utf-8') as file:
-                data = json.load(file)
-                all_data.append(data)
+        productName = medicine["Product name"] + ".json"
+        if(medicine["Substância Ativa/DCI"]):
+            activeSubstancePT = medicine["Substância Ativa/DCI"] + ".json"
+        else:
+            activeSubstancePT = "error"
+        activeSubstance = medicine["Active substance"] + ".json"
 
-    with open(combined_filename, 'w', encoding='utf-8') as file:
-        json.dump(all_data, file, indent=4, ensure_ascii=False)
+        # Check if the file exists in the directory
+        if productName in files_in_directory:
+            file_path = os.path.join(unstructured_data_dir, productName)
+        elif activeSubstancePT in files_in_directory:
+            file_path = os.path.join(unstructured_data_dir, activeSubstancePT)
+        elif activeSubstance in files_in_directory:
+            file_path = os.path.join(unstructured_data_dir, activeSubstance)
+        else:
+            print(f":( The leaflet for'{productName}' was not found.")
+            finalJson.append(medicine)
+            continue
+
+
+        # Open the file
+        with open(file_path, 'r', encoding='utf-8') as file:
+            unstructured_json = json.load(file)
+        
+        combined_data = {**medicine, **unstructured_json}
+        finalJson.append(combined_data)
+
+        print(f"'{productName}' leaflet found and added.")
+
+        #i += 1 #test code
+
+    with open("indexing/combined_medication_data.json", 'w', encoding='utf-8') as file:
+        json.dump(finalJson, file, indent=4, ensure_ascii=False)
+
+#RUN -------
 
 # Load the data
 structured_data = load_structured_data('data/structured_data.json')
 unstructured_data_dir = 'unstructured_data/'
 
-# Combine individual JSON data with structured data
-combine_data(structured_data, unstructured_data_dir)
+search_leaflet(structured_data, unstructured_data_dir)
 
-# Combine all JSON files into one
-combined_json_filename = 'indexing/combined_medication_data.json'
-combine_all_into_one(unstructured_data_dir, combined_json_filename)

@@ -5,7 +5,7 @@ import re
 
 delimiters = [
     r"O que é (?:.)*? e para que é (?:utilizado|utilizada)",
-    r"(?:O que precisa de saber )?antes de (?:utilizar|tomar|lhe ser administrado|lhe ser administrada)",
+    r"(?:O que precisa de saber )?antes de (?:utilizar|tomar|lhe ser administrado|lhe ser administrada|dar|lhe ser dado|lhe ser dada|usar)",
     r"Como (?:tomar|utilizar|(?:lhe )?é administrado|(?:lhe )?é administrada|é utilizado|é utilizada)",
     r"Efeitos (?:indesejáveis|secundários) (?:possíveis|possiveis)",
     r"Como (?:conservar|conserver)|Conservação de",
@@ -43,6 +43,7 @@ def fetchMedicineData(pdf_filename):
     
 
     spans = []
+    error = False
 
     start_i = 0
     for i, delim in enumerate(delimiters):
@@ -50,7 +51,8 @@ def fetchMedicineData(pdf_filename):
             first_ocurrence = re.search(delim, extracted_text, re.IGNORECASE | re.DOTALL)
             if(first_ocurrence == None): 
                 print(f"Did not find first: o que é e para que serve for file {os.path.splitext(os.path.basename(pdf_filename))[0]}")
-                return ""
+                error = True
+                break
             
             start_i = first_ocurrence.end()
         
@@ -58,23 +60,25 @@ def fetchMedicineData(pdf_filename):
         if(first_ocurrence == None): 
             print(f"Did not find this delimitator {delim} for file {os.path.splitext(os.path.basename(pdf_filename))[0]}")
             print(spans)
-            return ""
+            error = True
+            break
         
         spans.append(start_i + first_ocurrence.start())
         start_i += first_ocurrence.end()
     
-    print(spans)
-
-    json_section["O que é e para que é utilizado"] = extracted_text[spans[0]:spans[1]]
-    json_section["Antes de utilizar"] = extracted_text[spans[1]:spans[2]]
-    json_section["Como utilizar"] = extracted_text[spans[2]:spans[3]]
-    json_section["Efeitos secundários"] = extracted_text[spans[3]:spans[4]]
-    json_section["Como conservar"] = extracted_text[spans[4]:spans[5]]
-    json_section["Outras informações"] = extracted_text[spans[5]:]
-
+    if(not error):
+        print(spans)
+        json_section["O que é e para que é utilizado"] = extracted_text[spans[0]:spans[1]]
+        json_section["Antes de utilizar"] = extracted_text[spans[1]:spans[2]]
+        json_section["Como utilizar"] = extracted_text[spans[2]:spans[3]]
+        json_section["Efeitos secundários"] = extracted_text[spans[3]:spans[4]]
+        json_section["Como conservar"] = extracted_text[spans[4]:spans[5]]
+        json_section["Outras informações"] = extracted_text[spans[5]:]
+    else:
+        json_section = {}
+        json_section["Bula"] = extracted_text
 
     #print(json_section)
-
 
     json_data = json.dumps(json_section, indent=4, ensure_ascii=False)
     
