@@ -27,102 +27,136 @@
     ],
     "add-field": [
         {
-            "name": "Product_Name",
+            "name": "Product Name",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Active_substance_",
+            "name": "Active substance",
+            "type": "medicinesType",
+            "indexed": true
+        },{
+            "name": "Route of administration",
+            "type": "string",
+            "indexed": false
+        },
+        {
+            "name": "Product authorisation country",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Route_of_administration",
+            "name": "Marketing authorisation holder",
+            "type": "string",
+            "indexed": false
+        },
+        {
+            "name": "Pharmacovigilance system master file location",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Product_authorisation_country",
+            "name": "Pharmacovigilance enquiries email address",
+            "type": "string",
+            "indexed": false
+        },
+        {
+            "name": "Pharmacovigilance enquiries telephone number",
+            "type": "pint",
+            "indexed": false
+        },
+        {
+            "name": "Lowest PVP",
+            "type": "pfloat",
+            "indexed": false
+        },
+        {
+            "name": "Substância Ativa/DCI",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Marketing_authorisation_holder",
+            "name": "Forma Farmacêutica",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Pharmacovigilance_system_master_file_location",
+            "name": "Dosagem",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Pharmacovigilance_enquiries_email_address",
+            "name": "Titular de AIM",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Pharmacovigilance_enquiries_telephone_number",
+            "name": "Genérico",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Lowest_PVP",
+            "name": "Via(s) de Administração",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Subst_ncia_Ativa_DCI_",
+            "name": "Grupo de Produto",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Forma_Farmac_utica_",
+            "name": "Número de Processo",
+            "type": "string",
+            "indexed": false
+        },
+        {
+            "name": "AIM",
+            "type": "string",
+            "indexed": false
+        },
+        {
+            "name": "Data",
+            "type": "string",
+            "indexed": false
+        },
+        {
+            "name": "Classificação Quanto à Dispensa",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Dosagem_",
+            "name": "Duração do Tratamento",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Titular_de_AIM_",
+            "name": "O que é e para que é utilizado",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Gen_rico_",
+            "name": "Antes de utilizar",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Via_s__de_Administra__o_",
+            "name": "Como utilizar",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "N_mero_de_Processo_",
+            "name": "Efeitos secundários",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "AIM_",
+            "name": "Como conservar",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Classifica__o_Quanto___Dispensa_",
-            "type": "medicinesType",
-            "indexed": true
-        },
-        {
-            "name": "Dura__o_do_Tratamento_",
-            "type": "medicinesType",
-            "indexed": true
-        },
-        {
-            "name": "Data_",
+            "name": "Outras informações",
             "type": "medicinesType",
             "indexed": true
         }

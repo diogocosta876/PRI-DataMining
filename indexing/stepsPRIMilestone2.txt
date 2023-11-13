@@ -3,14 +3,17 @@ Passos no Solr:
 
 docker run -p 8983:8983 --name infomed -v ${PWD}:/data -d solr:9.3 solr-precreate medicines
 
-curl -X POST -H 'Content-type:application/json' \
---data-binary "@simple_schema.json" \            
-"http://localhost:8983/solr/medicines/schema"    
+
 
 curl -X POST -H 'Content-type:application/json' \
---data-binary "@processed_medication_data.json" \
+--data-binary "@simple_schema.json" \
+"http://localhost:8983/solr/medicines/schema"
+
+curl -X POST -H 'Content-type:application/json' \
+--data-binary "@combined_medication_data.json" \
 "http://localhost:8983/solr/medicines/update?commit=true"
 
+-.-.-.-.-.-
 
 Filters especias:
 solr.SnowballPorterFilterFactory
