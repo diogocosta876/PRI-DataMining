@@ -1,6 +1,8 @@
 import os
 import json
 
+from unidecode import unidecode
+
 def load_structured_data(filename):
     with open(filename, 'r', encoding='utf-8') as file:
         return json.load(file)
@@ -17,12 +19,12 @@ def search_leaflet(structured_data, unstructured_data_dir):
     for medicine in structured_data:
         #if(i==3): break #test code
 
-        productName = medicine["Product name"] + ".json"
-        if(medicine["Substância Ativa/DCI"]):
-            activeSubstancePT = medicine["Substância Ativa/DCI"] + ".json"
+        productName = medicine["Product_name"] + ".json"
+        if(medicine["Substancia_Ativa/DCI"]):
+            activeSubstancePT = medicine["Substancia_Ativa/DCI"] + ".json"
         else:
             activeSubstancePT = "error"
-        activeSubstance = medicine["Active substance"] + ".json"
+        activeSubstance = medicine["Active_substance"] + ".json"
 
         # Check if the file exists in the directory
         if productName in files_in_directory:
@@ -41,7 +43,14 @@ def search_leaflet(structured_data, unstructured_data_dir):
         with open(file_path, 'r', encoding='utf-8') as file:
             unstructured_json = json.load(file)
         
-        combined_data = {**medicine, **unstructured_json}
+        unstructured_json_v2 = {}
+        for key, value in unstructured_json.items():
+            key = key.replace(" ", "_")
+            key = unidecode(key)
+            unstructured_json_v2[key] = value
+
+
+        combined_data = {**medicine, **unstructured_json_v2}
         finalJson.append(combined_data)
 
         print(f"'{productName}' leaflet found and added.")

@@ -1,9 +1,13 @@
+from unidecode import unidecode
 import pandas as pd
 import json
 
 
 def apply_to_column_name(name):
     name = name.strip()
+    name = name.replace(" ", "_")
+    name = unidecode(name)
+
     if(name[-1] == ':'):
         name = name[:-1]
 
