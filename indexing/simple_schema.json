@@ -67,8 +67,8 @@
         },
         {
             "name": "Lowest_PVP",
-            "type": "string",
-            "indexed": false
+            "type": "pfloat",
+            "indexed": true
         },
         {
             "name": "Substancia_Ativa_DCI",
