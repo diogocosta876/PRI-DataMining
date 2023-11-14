@@ -27,56 +27,56 @@
     ],
     "add-field": [
         {
-            "name": "Product Name",
+            "name": "Product_Name",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Active substance",
+            "name": "Active_substance",
             "type": "medicinesType",
             "indexed": true
         },{
-            "name": "Route of administration",
+            "name": "Route_of_administration",
             "type": "string",
             "indexed": false
         },
         {
-            "name": "Product authorisation country",
+            "name": "Product_authorisation_country",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Marketing authorisation holder",
+            "name": "Marketing_authorisation_holder",
             "type": "string",
             "indexed": false
         },
         {
-            "name": "Pharmacovigilance system master file location",
+            "name": "Pharmacovigilance_system_master_file_location",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Pharmacovigilance enquiries email address",
+            "name": "Pharmacovigilance_enquiries_email_address",
             "type": "string",
             "indexed": false
         },
         {
-            "name": "Pharmacovigilance enquiries telephone number",
+            "name": "Pharmacovigilance_enquiries_telephone_number",
             "type": "pint",
             "indexed": false
         },
         {
-            "name": "Lowest PVP",
+            "name": "Lowest_PVP",
             "type": "pfloat",
             "indexed": false
         },
         {
-            "name": "Substância Ativa/DCI",
+            "name": "Substancia_Ativa/DCI",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Forma Farmacêutica",
+            "name": "Forma_Farmaceutica",
             "type": "medicinesType",
             "indexed": true
         },
@@ -86,27 +86,27 @@
             "indexed": true
         },
         {
-            "name": "Titular de AIM",
+            "name": "Titular_de_AIM",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Genérico",
+            "name": "Generico",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Via(s) de Administração",
+            "name": "Via(s)_de_Administracao",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Grupo de Produto",
+            "name": "Grupo_de_Produto",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Número de Processo",
+            "name": "Numero_de_Processo",
             "type": "string",
             "indexed": false
         },
@@ -121,42 +121,47 @@
             "indexed": false
         },
         {
-            "name": "Classificação Quanto à Dispensa",
+            "name": "Classificacao_Quanto_a_Dispensa",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Duração do Tratamento",
+            "name": "Duracao_do_Tratamento",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "O que é e para que é utilizado",
+            "name": "O_que_e_e_para_que_e_utilizado",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Antes de utilizar",
+            "name": "Antes_de_utilizar",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Como utilizar",
+            "name": "Como_utilizar",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Efeitos secundários",
+            "name": "Efeitos_secundarios",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Como conservar",
+            "name": "Como_conservar",
             "type": "medicinesType",
             "indexed": true
         },
         {
-            "name": "Outras informações",
+            "name": "Outras_informacoes",
+            "type": "medicinesType",
+            "indexed": true
+        },
+        {
+            "name": "Bula",
             "type": "medicinesType",
             "indexed": true
         }
