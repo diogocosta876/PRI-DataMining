@@ -62,16 +62,16 @@
         },
         {
             "name": "Pharmacovigilance_enquiries_telephone_number",
-            "type": "pint",
+            "type": "string",
             "indexed": false
         },
         {
             "name": "Lowest_PVP",
-            "type": "pfloat",
+            "type": "string",
             "indexed": false
         },
         {
-            "name": "Substancia_Ativa/DCI",
+            "name": "Substancia_Ativa_DCI",
             "type": "medicinesType",
             "indexed": true
         },
@@ -96,7 +96,7 @@
             "indexed": true
         },
         {
-            "name": "Via(s)_de_Administracao",
+            "name": "Vias_de_Administracao",
             "type": "medicinesType",
             "indexed": true
         },
