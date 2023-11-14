@@ -7,6 +7,9 @@ def apply_to_column_name(name):
     name = name.strip()
     name = name.replace(" ", "_")
     name = unidecode(name)
+    name = name.replace("/", "_")
+    name = name.replace("(", "")
+    name = name.replace(")", "")
 
     if(name[-1] == ':'):
         name = name[:-1]

@@ -20,8 +20,8 @@ def search_leaflet(structured_data, unstructured_data_dir):
         #if(i==3): break #test code
 
         productName = medicine["Product_name"] + ".json"
-        if(medicine["Substancia_Ativa/DCI"]):
-            activeSubstancePT = medicine["Substancia_Ativa/DCI"] + ".json"
+        if(medicine["Substancia_Ativa_DCI"]):
+            activeSubstancePT = medicine["Substancia_Ativa_DCI"] + ".json"
         else:
             activeSubstancePT = "error"
         activeSubstance = medicine["Active_substance"] + ".json"
