@@ -13,7 +13,7 @@ def choose_data(oldData, numberitems):
     mandatoryData = [item for item in oldData if item["Product_name"] in mandatory_files]
     ramdomData = [item for item in oldData if "O_que_e_e_para_que_e_utilizado" in item and item["Product_name"] not in mandatory_files]
 
-    random_items = random.sample(oldData, numberitems - len(mandatoryData))
+    random_items = random.sample(ramdomData, numberitems - len(mandatoryData))
 
     randomJson = mandatoryData + random_items
 
