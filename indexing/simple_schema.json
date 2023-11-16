@@ -67,7 +67,7 @@
         },
         {
             "name": "Lowest_PVP",
-            "type": "pfloat",
+            "type": "string",
             "indexed": true
         },
         {
