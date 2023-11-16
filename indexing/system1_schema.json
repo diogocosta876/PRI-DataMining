@@ -1,0 +1,162 @@
+{
+	"add-field-type": [
+        {
+            "name":"medicinesTypeSystem1System1",
+            "class":"solr.TextField",
+            "indexAnalyzer":{
+                "tokenizer":{
+                },
+                "filters":[
+                ]
+            },
+            "queryAnalyzer":{
+                "tokenizer":{
+                },
+                "filters":[
+                    
+                ]
+            }
+        }
+    ],
+    "add-field": [
+        {
+            "name": "Product_Name",
+            "type": "medicinesTypeSystem1",
+            "indexed": true
+        },
+        {
+            "name": "Active_substance",
+            "type": "medicinesTypeSystem1",
+            "indexed": true
+        },{
+            "name": "Route_of_administration",
+            "type": "string",
+            "indexed": false
+        },
+        {
+            "name": "Product_authorisation_country",
+            "type": "medicinesTypeSystem1",
+            "indexed": true
+        },
+        {
+            "name": "Marketing_authorisation_holder",
+            "type": "string",
+            "indexed": false
+        },
+        {
+            "name": "Pharmacovigilance_system_master_file_location",
+            "type": "medicinesTypeSystem1",
+            "indexed": true
+        },
+        {
+            "name": "Pharmacovigilance_enquiries_email_address",
+            "type": "string",
+            "indexed": false
+        },
+        {
+            "name": "Pharmacovigilance_enquiries_telephone_number",
+            "type": "string",
+            "indexed": false
+        },
+        {
+            "name": "Lowest_PVP",
+            "type": "string",
+            "indexed": true
+        },
+        {
+            "name": "Substancia_Ativa_DCI",
+            "type": "medicinesTypeSystem1",
+            "indexed": true
+        },
+        {
+            "name": "Forma_Farmaceutica",
+            "type": "medicinesTypeSystem1",
+            "indexed": true
+        },
+        {
+            "name": "Dosagem",
+            "type": "medicinesTypeSystem1",
+            "indexed": true
+        },
+        {
+            "name": "Titular_de_AIM",
+            "type": "medicinesTypeSystem1",
+            "indexed": true
+        },
+        {
+            "name": "Generico",
+            "type": "medicinesTypeSystem1",
+            "indexed": true
+        },
+        {
+            "name": "Vias_de_Administracao",
+            "type": "medicinesTypeSystem1",
+            "indexed": true
+        },
+        {
+            "name": "Grupo_de_Produto",
+            "type": "medicinesTypeSystem1",
+            "indexed": true
+        },
+        {
+            "name": "Numero_de_Processo",
+            "type": "string",
+            "indexed": false
+        },
+        {
+            "name": "AIM",
+            "type": "string",
+            "indexed": false
+        },
+        {
+            "name": "Data",
+            "type": "string",
+            "indexed": false
+        },
+        {
+            "name": "Classificacao_Quanto_a_Dispensa",
+            "type": "medicinesTypeSystem1",
+            "indexed": true
+        },
+        {
+            "name": "Duracao_do_Tratamento",
+            "type": "medicinesTypeSystem1",
+            "indexed": true
+        },
+        {
+            "name": "O_que_e_e_para_que_e_utilizado",
+            "type": "medicinesTypeSystem1",
+            "indexed": true
+        },
+        {
+            "name": "Antes_de_utilizar",
+            "type": "medicinesTypeSystem1",
+            "indexed": true
+        },
+        {
+            "name": "Como_utilizar",
+            "type": "medicinesTypeSystem1",
+            "indexed": true
+        },
+        {
+            "name": "Efeitos_secundarios",
+            "type": "medicinesTypeSystem1",
+            "indexed": true
+        },
+        {
+            "name": "Como_conservar",
+            "type": "medicinesTypeSystem1",
+            "indexed": true
+        },
+        {
+            "name": "Outras_informacoes",
+            "type": "medicinesTypeSystem1",
+            "indexed": true
+        },
+        {
+            "name": "Bula",
+            "type": "medicinesTypeSystem1",
+            "indexed": true
+        }
+    ]
+}
