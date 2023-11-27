@@ -2,6 +2,7 @@ body, html {
     margin: 0;
     height: 100%;
     font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
 }
 
 .background-image {
@@ -40,13 +41,13 @@ body, html {
     margin: 20px auto;
     position: relative; 
     width: 50%; 
-    background-color: rgba(85, 85, 85, 0.65);
+    background-color: rgba(255, 255, 255, 0.65);
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: 0px 10px;
 }
 
 #medicine-search {
@@ -54,14 +55,14 @@ body, html {
     font-size: 18px;
     padding: 8px 15px;
     margin: 10px 0px;
-    width: 85%;
+    width: 85vh;
     margin-left: 10px; 
     margin-right: 12px; 
     outline: none;
     background-color: transparent;
-    border-bottom: 1px solid rgb(255, 255, 255, 0.6); 
+    border-bottom: 1px solid rgba(0, 0, 0, 0.7); 
     box-shadow: none;
-    color: white;
+    color: rgb(27, 27, 27);
     font-weight: 300;
 
     
@@ -70,7 +71,7 @@ body, html {
     border-bottom: 2px solid #ff3c3c; 
 }
 #medicine-search::placeholder {
-    color: rgb(255, 255, 255, 0.6); 
+    color: rgba(0, 0, 0, 0.7); 
     opacity: 1; 
     font-weight: 200;
 }
@@ -78,6 +79,7 @@ body, html {
 .search-icon {
     width: 50px;
     height: 50px;
+    color: rgba(0, 0, 0, 0.7);
 }
 
 .icon-button{
@@ -91,6 +93,9 @@ body, html {
     margin: 0 15px;
     margin: auto;
 }
+.icon-button:hover {
+    cursor: pointer;
+}
 
 .custom-queries {
     position: absolute;
@@ -102,3 +107,64 @@ body, html {
     padding: 20px 0;
     opacity: 0.85;
 }
+
+
+.input-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.loading {
+    margin: 10px;
+}
+
+#spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-left-color: rgb(255, 0, 0);
+    animation: spin 1s ease infinite;
+    margin: 0 15px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.suggestions {
+    display: block;
+    width: 100%;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.suggestions > div{
+    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 55px;
+    box-sizing: border-box;
+    background-color: rgba(155, 155, 155, 0.523);
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.3em;
+}
+

@@ -14,10 +14,18 @@
         <h1 class="title">Busca<span class="heart">♥</span>Med</h1>
 
         <div class="search-container">
-            <input type="text" id="medicine-search" name="search" placeholder="Enter a medicine name">
-            <button class="icon-button">
-                <img src="assets/search_icon.png" alt="Search" class="search-icon">
-            </button>
+            <div class="input-row">
+                <input type="text" id="medicine-search" name="search" placeholder="Enter a medicine name">
+                <button id="search-button" class="icon-button">
+                    <img src="assets/search_icon.png" alt="Search" class="search-icon">
+                </button>
+            </div>
+            <div id="searchResults" class="suggestions">
+                <section id="loading" class="loading" hidden>
+                    <div id="spinner" hidden></div>
+                </section>
+            </div>
+
         </div>
     </div>
     
@@ -25,5 +33,6 @@
     <section class="custom-queries">
         <!-- Other content goes here -->
     </section>
+    <script src="search.js"></script>
 </body>
 </html>
