@@ -1,4 +1,5 @@
 import React from 'react';
+import './Suggestions.css';
 
 function Suggestions({ medicines, onSuggestionClick }) {
   if (!medicines.length) {

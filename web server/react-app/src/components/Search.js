@@ -3,6 +3,7 @@ import debounce from 'lodash.debounce';
 import Suggestions from './Suggestions';
 import Loading from './Loading';
 import searchIcon from '../assets/search_icon.png';
+import './Search.css';
 
 function Search() {
   const [searchQuery, setSearchQuery] = useState('');

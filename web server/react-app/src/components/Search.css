@@ -1,0 +1,69 @@
+.search-container {
+    margin: 20px auto;
+    position: relative; 
+    width: 50%; 
+    background-color: rgba(255, 255, 255, 0.65);
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .input-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+
+  #medicine-search {
+    border: none;
+    font-size: 18px;
+    padding: 8px 15px;
+    margin: 10px 0px;
+    width: 85vh;
+    margin-left: 10px; 
+    margin-right: 12px; 
+    outline: none;
+    background-color: transparent;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.7); 
+    box-shadow: none;
+    color: rgb(27, 27, 27);
+    font-weight: 300;
+  
+    
+  }
+  #medicine-search:focus {
+    border-bottom: 2px solid #ff3c3c; 
+  }
+  #medicine-search::placeholder {
+    color: rgba(0, 0, 0, 0.7); 
+    opacity: 1; 
+    font-weight: 200;
+  }
+
+  .search-icon {
+    width: 50px;
+    height: 50px;
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  .icon-button{
+    width: 50px;
+    height: 65px;
+    background: transparent;
+    border: none;
+    margin: 0 15px;
+    margin: auto;
+  }
+  .icon-button:hover {
+    cursor: pointer;
+  }
+  
+  

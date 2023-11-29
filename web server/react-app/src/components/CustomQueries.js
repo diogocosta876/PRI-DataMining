@@ -1,4 +1,5 @@
 import React from 'react';
+import './CustomQueries.css';
 
 function CustomQueries() {
   return (
