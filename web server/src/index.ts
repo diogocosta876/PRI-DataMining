@@ -41,11 +41,9 @@ interface SolrResponse {
 }
 
 const app = express();
-const port = 3000;
+const port = 3001;
 
 app.use(cors()); //enable cors
-
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/search', async (req, res) => {
   const query = req.query.q?.toString().toLowerCase() || '';
