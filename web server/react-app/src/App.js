@@ -9,7 +9,7 @@ function App() {
       <div className="background-image"></div>
       <div className="overlay"></div>
       <div className="container">
-        <h1 className="title">Busca<span className="heart">♥</span>Med</h1>
+        <h1 className="title">Pesquisa<span className="heart">♥</span>Med</h1>
         <Search />
       </div>
       <CustomQueries />

@@ -47,9 +47,10 @@ app.use(cors()); //enable cors
 
 app.get('/search', async (req, res) => {
   const query = req.query.q?.toString().toLowerCase() || '';
-  const solrUrl = `http://localhost:8983/solr/medicines/select?q=Product_name:${encodeURIComponent(query)}`;
+  const solrUrl = `http://localhost:8983/solr/medicines/select?q=${encodeURIComponent(query)}`;
 
   try {
+    console.log('Querying Solr:', query);
     const solrResponse = await fetch(solrUrl);
     const solrJson = await solrResponse.json() as SolrResponse;
 

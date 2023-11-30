@@ -23,7 +23,7 @@ function Search() {
   const fetchMedicines = async (query) => {
     setLoading(true);
     try {
-      const response = await fetch('/search?q=' + encodeURIComponent(query));
+      const response = await fetch('/search?q=Product_name:' + encodeURIComponent(query));
       const data = await response.json();
       console.log(data);
       setMedicines(data);
