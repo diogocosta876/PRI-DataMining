@@ -17,8 +17,16 @@
     width: 100%;
     height: 55px;
     box-sizing: border-box;
-    background-color: rgba(155, 155, 155, 0.523);
+    background-color: rgba(253, 253, 253, 0.83);
     border-radius: 10px;
     text-align: center;
     font-size: 1.3em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    transform: scale(0.97);
+  }
+
+  .suggestions > div:hover {
+    background-color: #ffffff;
+    transform: scale(1.0);
   }

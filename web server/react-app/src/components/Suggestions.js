@@ -9,7 +9,7 @@ function Suggestions({ medicines, onSuggestionClick }) {
   return (
     <div id="searchResults" className="suggestions">
       {medicines.map((medicine) => (
-        <div key={medicine.id || medicine.name} onClick={() => onSuggestionClick(medicine.name)}>
+        <div key={medicine.id || medicine.name} onClick={() => onSuggestionClick(medicine)}>
           {medicine.name}
         </div>
       ))}

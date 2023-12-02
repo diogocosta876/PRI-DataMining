@@ -5,14 +5,14 @@ import Loading from './Loading';
 import searchIcon from '../assets/search_icon.png';
 import './Search.css';
 
-function Search() {
+function Search({ onSuggestionSelect }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [medicines, setMedicines] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const handleSuggestionClick = (medicineName) => {
-    setSearchQuery(medicineName);
-    // TODO handle suggestion click
+  const handleSuggestionClick = (medicine) => {
+    setSearchQuery(medicine.name);
+    onSuggestionSelect(medicine);
   };
   
   const suggestionsComponent = medicines.length > 0 && !loading ? (
