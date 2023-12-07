@@ -3,6 +3,14 @@ import './Sidebar.css';
 
 const Sidebar = ({ isOpen, closeSidebar, medicine }) => {
     const sidebarClass = isOpen ? "sidebar open" : "sidebar";
+
+    const handleDownload = () => {
+      const fileName = medicine?.name.replace(/\s+/g, '_'); // Replace spaces with underscores or however your files are named
+      const url = `http://localhost:3001/download/${encodeURIComponent(fileName)}`;
+      window.open(url, '_blank');
+    };
+  
+
     return (
       <div className={sidebarClass}>
         <div className="sidebar-header">
@@ -39,7 +47,7 @@ const Sidebar = ({ isOpen, closeSidebar, medicine }) => {
           <p><strong>Menor Preço de Comercialização:</strong> {medicine?.lowestPVP}€</p>
         </div>
         <div className="sidebar-footer">
-          <button className="info-button">Bula Informativa</button>
+          <button className="info-button" onClick={handleDownload}>Bula Informativa</button>
         </div>
       </div>
     );

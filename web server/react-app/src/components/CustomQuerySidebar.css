@@ -1,0 +1,58 @@
+
+.sidebar-title{
+  color: rgba(255, 103, 103, 0.84);
+}
+
+.query{
+  margin-top: 3vh;
+  margin-bottom: 1vh;
+  text-align: center; /* Centers text horizontally */
+  display: flex; /* Use flexbox for alignment */
+  justify-content: center; /* Centers content horizontally in the flex container */
+  align-items: center; /* Centers content vertically in the flex container */
+
+  font-family: Montserrat;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.search-bar{
+  display: flex;
+  display: column;
+  justify-content: center;
+  margin: 0em 2em;
+  margin-top: 3vh;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  font-size: 16px;
+  border-bottom: 1px solid #ccc;
+  box-sizing: border-box; /* Makes sure the padding doesn't affect the total width */
+}
+.search-bar input:focus {
+  outline: none !important; /* Removes the default focus outline */
+  border-bottom: 3px solid rgba(255, 103, 103, 0.84) !important; /* Changes the border to red on focus */
+}
+.query-result-item {
+  background-color: #f7f7f7;
+  margin-bottom: 10px;
+  padding: 15px;
+  border-radius: 5px; /* Rounded corners for the items */
+  display: flex;
+  align-items: center; 
+  text-align: center;
+  justify-content: center;
+}
+
+.medicine-name {
+  /* Add styles to match your mockup, such as font size, weight, etc. */
+  font-size: 16px; /* Example size, adjust as needed */
+  font-weight: bold;
+  margin: auto;
+}

@@ -93,6 +93,23 @@ app.get('/search', async (req, res) => {
   }
 });
 
+
+app.get('/download/:filename', (req, res) => {
+  const filename = req.params.filename;
+  const directoryPath = path.join(__dirname, '..', '..', 'downloaded_pdfs');
+  const filePath = path.join(directoryPath, filename + '.pdf');
+
+  res.setHeader('Content-Disposition', 'inline');
+  res.sendFile(filePath, (err) => {
+    if (err) {
+      // handle error, for example if file does not exist
+      res.status(404).send('File not found');
+    }
+  });
+});
+
+// ... 
+
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
