@@ -1,0 +1,184 @@
+{
+	"add-field-type": [
+        {
+            "name":"medicinesType",
+            "class":"solr.TextField",
+            "indexAnalyzer":{
+                "tokenizer":{
+                    "class":"solr.StandardTokenizerFactory"
+                },
+                "filters":[
+                    {"class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true},
+                    {"class":"solr.LowerCaseFilterFactory"},
+                    {"class":"solr.SnowballPorterFilterFactory"}
+                ]
+            },
+            "queryAnalyzer":{
+                "tokenizer":{
+                    "class":"solr.StandardTokenizerFactory"
+                },
+                "filters":[
+                    {"class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true},
+                    {"class":"solr.LowerCaseFilterFactory"},
+                    {"class":"solr.SnowballPorterFilterFactory"}
+                ]
+            }
+        },
+        {
+            "name": "medicineVector",
+            "class": "solr.DenseVectorField",
+            "vectorDimension": 384,
+            "similarityFunction": "cosine",
+            "knnAlgorithm": "hnsw"
+        }
+
+    ],
+    "add-field": [
+        {
+            "name": "Product_Name",
+            "type": "medicinesType",
+            "indexed": true
+        },
+        {
+            "name": "Active_substance",
+            "type": "medicinesType",
+            "indexed": true
+        },{
+            "name": "Route_of_administration",
+            "type": "string",
+            "indexed": false
+        },
+        {
+            "name": "Product_authorisation_country",
+            "type": "medicinesType",
+            "indexed": true
+        },
+        {
+            "name": "Marketing_authorisation_holder",
+            "type": "string",
+            "indexed": false
+        },
+        {
+            "name": "Pharmacovigilance_system_master_file_location",
+            "type": "medicinesType",
+            "indexed": true
+        },
+        {
+            "name": "Pharmacovigilance_enquiries_email_address",
+            "type": "string",
+            "indexed": false
+        },
+        {
+            "name": "Pharmacovigilance_enquiries_telephone_number",
+            "type": "string",
+            "indexed": false
+        },
+        {
+            "name": "Lowest_PVP",
+            "type": "string",
+            "indexed": true
+        },
+        {
+            "name": "Substancia_Ativa_DCI",
+            "type": "medicinesType",
+            "indexed": true
+        },
+        {
+            "name": "Forma_Farmaceutica",
+            "type": "medicinesType",
+            "indexed": true
+        },
+        {
+            "name": "Dosagem",
+            "type": "medicinesType",
+            "indexed": true
+        },
+        {
+            "name": "Titular_de_AIM",
+            "type": "medicinesType",
+            "indexed": true
+        },
+        {
+            "name": "Generico",
+            "type": "medicinesType",
+            "indexed": true
+        },
+        {
+            "name": "Vias_de_Administracao",
+            "type": "medicinesType",
+            "indexed": true
+        },
+        {
+            "name": "Grupo_de_Produto",
+            "type": "medicinesType",
+            "indexed": true
+        },
+        {
+            "name": "Numero_de_Processo",
+            "type": "string",
+            "indexed": false
+        },
+        {
+            "name": "AIM",
+            "type": "string",
+            "indexed": false
+        },
+        {
+            "name": "Data",
+            "type": "string",
+            "indexed": false
+        },
+        {
+            "name": "Classificacao_Quanto_a_Dispensa",
+            "type": "medicinesType",
+            "indexed": true
+        },
+        {
+            "name": "Duracao_do_Tratamento",
+            "type": "medicinesType",
+            "indexed": true
+        },
+        {
+            "name": "O_que_e_e_para_que_e_utilizado",
+            "type": "medicinesType",
+            "indexed": true
+        },
+        {
+            "name": "Antes_de_utilizar",
+            "type": "medicinesType",
+            "indexed": true
+        },
+        {
+            "name": "Como_utilizar",
+            "type": "medicinesType",
+            "indexed": true
+        },
+        {
+            "name": "Efeitos_secundarios",
+            "type": "medicinesType",
+            "indexed": true
+        },
+        {
+            "name": "Como_conservar",
+            "type": "medicinesType",
+            "indexed": true
+        },
+        {
+            "name": "Outras_informacoes",
+            "type": "medicinesType",
+            "indexed": true
+        },
+        {
+            "name": "Bula",
+            "type": "medicinesType",
+            "indexed": true
+        },
+        {
+            "name": "vector",
+            "type": "medicineVector",
+            "indexed": true,
+            "stored": true
+        }
+
+    ]
+}

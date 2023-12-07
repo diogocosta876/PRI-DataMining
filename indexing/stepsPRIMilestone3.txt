@@ -13,6 +13,17 @@ curl -X POST -H 'Content-type:application/json' \
 --data-binary "@sample_combined_medication_data.json" \
 "http://localhost:8983/solr/medicines/update?commit=true"
 
+Tutorial Semantic Search:
+
+Instalar:
+pip install sentence-transformers
+
+
+Para conseguir os embeddings:
+cat sample_combined_medication_data.json | python3 get_embeddings.py > semantic_medicines.json
+
+
+
 -.-.-.-.-.-
 
 Filters especias:
