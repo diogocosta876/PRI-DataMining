@@ -11,6 +11,7 @@ function App() {
   const [isCustomQuerySidebarOpen, setIsCustomQuerySidebarOpen] = useState(false);
   const [customQueryResults, setCustomQueryResults] = useState([]);
   const [selectedQuery, setSelectedQuery] = useState("");
+  const [activeSidebar, setActiveSidebar] = useState(null);
 
   const handleSuggestionClick = (medicine) => {
     setSelectedMedicine(medicine);
@@ -21,8 +22,13 @@ function App() {
     setCustomQueryResults(data);
     setSelectedQuery(query);
     setIsCustomQuerySidebarOpen(true); // Open the CustomQuerySidebar
-    setIsSidebarOpen(false); //lose the other sidebar if open
-    console.log("selected query: ", query);
+    setActiveSidebar('query');
+  };
+
+  const handleMedicineSelect = (medicine) => {
+    setSelectedMedicine(medicine);
+    setIsSidebarOpen(true);
+    setActiveSidebar('medicine');
   };
 
   return (
@@ -34,13 +40,22 @@ function App() {
         <Search onSuggestionSelect={handleSuggestionClick}/>
       </div>
       <CustomQueries onQuerySelect={handleQuerySelect} />
-      <Sidebar isOpen={isSidebarOpen} closeSidebar={() => setIsSidebarOpen(false)} medicine={selectedMedicine} />
-      <CustomQuerySidebar 
-  isOpen={isCustomQuerySidebarOpen} 
-  closeSidebar={() => setIsCustomQuerySidebarOpen(false)} 
-  query={selectedQuery}
-  queryResults={customQueryResults} 
-/>
+      <Sidebar
+        isOpen={isSidebarOpen}
+        closeSidebar={() => setIsSidebarOpen(false)}
+        medicine={selectedMedicine}
+        onMedicineSelect={handleMedicineSelect}
+        active={activeSidebar === 'query'}
+      />
+      <CustomQuerySidebar
+        isOpen={isCustomQuerySidebarOpen} 
+        closeSidebar={() => setIsCustomQuerySidebarOpen(false)}
+        medicine={selectedMedicine}
+        active={activeSidebar === 'medicine'}
+        query={selectedQuery}
+        queryResults={customQueryResults} 
+        onMedicineSelect={handleMedicineSelect}
+      />
     </div>
   );
 }

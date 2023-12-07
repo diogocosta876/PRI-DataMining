@@ -15,7 +15,7 @@ const Sidebar = ({ isOpen, closeSidebar, medicine }) => {
       <div className={sidebarClass}>
         <div className="sidebar-header">
           <button onClick={closeSidebar} className="close-button">&larr;</button>
-          <h2 className="medicine-name">{medicine?.name}</h2>
+          <h2 className="sidebar-title">{medicine?.name}</h2>
         </div>
         <div className="sidebar-content">
           <p><strong>Nº Processo:</strong> {medicine?.processNumber}</p>
@@ -44,7 +44,7 @@ const Sidebar = ({ isOpen, closeSidebar, medicine }) => {
           
          
           
-          <p><strong>Menor Preço de Comercialização:</strong> {medicine?.lowestPVP}€</p>
+          <p><strong>Menor Preço de Comercialização: </strong> {medicine?.lowestPVP !== 'Not Available' ? `${ medicine?.lowestPVP}€` : 'Not Available'}</p>
         </div>
         <div className="sidebar-footer">
           <button className="info-button" onClick={handleDownload}>Bula Informativa</button>

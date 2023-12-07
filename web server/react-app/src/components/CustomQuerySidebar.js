@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import './Sidebar.css';
 import './CustomQuerySidebar.css';
 
-const QueryResultSidebar = ({ isOpen, closeSidebar, queryResults, query }) => {
+const QueryResultSidebar = ({ isOpen, closeSidebar, queryResults, query, onMedicineSelect, active }) => {
   const [filter, setFilter] = useState('');
   const filteredResults = queryResults.filter((result) =>
     result.name.toLowerCase().includes(filter.toLowerCase())
   );
   
-  const sidebarClass = isOpen ? "sidebar open" : "sidebar";
+  const sidebarClass = isOpen ? "sidebar open" + (active ? " active" : "") : "sidebar";
 
   return (
     <div className={sidebarClass}>
@@ -26,7 +26,7 @@ const QueryResultSidebar = ({ isOpen, closeSidebar, queryResults, query }) => {
       </div>
       <div className="sidebar-content">
         {filteredResults.map((result, index) => (
-          <div key={index} className="query-result-item">
+          <div key={index} className="query-result-item" onClick={() => onMedicineSelect(result)}>
             <span >{result.name}</span>
           </div>
         ))}
