@@ -37,3 +37,19 @@ body, html {
 .heart {
   color: red;
 }
+
+.sidebar {
+  z-index: 1;
+}
+
+.sidebar.active {
+  z-index: 2;
+}
+
+.sidebar {
+  display: none; 
+}
+
+.sidebar.open {
+  display: block;
+}

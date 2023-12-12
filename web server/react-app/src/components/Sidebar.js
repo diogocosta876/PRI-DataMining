@@ -3,11 +3,19 @@ import './Sidebar.css';
 
 const Sidebar = ({ isOpen, closeSidebar, medicine }) => {
     const sidebarClass = isOpen ? "sidebar open" : "sidebar";
+
+    const handleDownload = () => {
+      const fileName = medicine?.name.replace(/\s+/g, '_'); // Replace spaces with underscores or however your files are named
+      const url = `http://localhost:3001/download/${encodeURIComponent(fileName)}`;
+      window.open(url, '_blank');
+    };
+  
+
     return (
       <div className={sidebarClass}>
         <div className="sidebar-header">
           <button onClick={closeSidebar} className="close-button">&larr;</button>
-          <h2 className="medicine-name">{medicine?.name}</h2>
+          <h2 className="sidebar-title">{medicine?.name}</h2>
         </div>
         <div className="sidebar-content">
           <p><strong>Nº Processo:</strong> {medicine?.processNumber}</p>
@@ -36,10 +44,10 @@ const Sidebar = ({ isOpen, closeSidebar, medicine }) => {
           
          
           
-          <p><strong>Menor Preço de Comercialização:</strong> {medicine?.lowestPVP}€</p>
+          <p><strong>Menor Preço de Comercialização: </strong> {medicine?.lowestPVP !== 'Not Available' ? `${ medicine?.lowestPVP}€` : 'Not Available'}</p>
         </div>
         <div className="sidebar-footer">
-          <button className="info-button">Bula Informativa</button>
+          <button className="info-button" onClick={handleDownload}>Bula Informativa</button>
         </div>
       </div>
     );

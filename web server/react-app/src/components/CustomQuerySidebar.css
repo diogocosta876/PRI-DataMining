@@ -1,0 +1,67 @@
+
+.sidebar-title{
+  color: rgba(255, 103, 103, 0.84);
+  margin: 20px;
+}
+
+.query{
+  margin-top: 3vh;
+  margin-bottom: 1vh;
+  text-align: center;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+
+  font-family: Montserrat;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.search-bar{
+  display: flex;
+  display: column;
+  justify-content: center;
+  margin: 0em 2em;
+  margin-top: 3vh;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  font-size: 16px;
+  border-bottom: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.search-bar input:focus {
+  outline: none; 
+  border-bottom: 3px solid rgba(255, 103, 103, 0.84);
+}
+
+.query-result-item {
+  background-color: #f7f7f7;
+  margin-bottom: 10px;
+  padding: 15px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center; 
+  text-align: center;
+  justify-content: center;
+  cursor: pointer; 
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.query-result-item:hover {
+  background-color: #ddd; 
+  transform: scale(1.02); 
+}
+
+.medicine-name {
+  font-size: 16px;
+  font-weight: bold;
+  margin: auto;
+}

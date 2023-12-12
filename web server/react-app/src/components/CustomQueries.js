@@ -38,26 +38,25 @@ const queryData = [
       crianças"~6`
   }
 ];
-
-const fetchMedicines = async (query) => {
-  try {
-    const response = await fetch('/search?q=' + encodeURIComponent(query));
-    const data = await response.json();
-    console.log(data);
-  } catch (error) {
-    console.error('Error:', error);
-  }
-};
-
-  const handleQueryClick = (query) => {
-    fetchMedicines(query);
+function CustomQueries({ onQuerySelect }) {
+  const fetchMedicines = async (query, title) => {
+    try {
+      const response = await fetch('/search?q=' + encodeURIComponent(query));
+      const data = await response.json();
+      onQuerySelect(data, title); 
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
-function CustomQueries() {
+  const handleQueryClick = (query, title) => {
+    fetchMedicines(query, title);
+  };
+
   return (
     <section className="custom-queries">
       {queryData.map((item, index) => (
-        <div key={index} className="query-card" onClick={() => handleQueryClick(item.query)}>
+        <div key={index} className="query-card" onClick={() => handleQueryClick(item.query, item.title)}>
           <img src={questionIcon} alt="Query Icon" className="query-icon" />
           <h3 className="query-title">{item.title}</h3>
           <div className="query-subtext">*for medical professionals</div>
