@@ -173,7 +173,8 @@ app.post('/generalSearch', async (req, res) => {
 app.get('/download/:filename', (req, res) => {
   const filename = req.params.filename;
   const directoryPath = path.join(__dirname, '..', '..', 'downloaded_pdfs');
-  const filePath = path.join(directoryPath, filename + '.pdf');
+  const filenameForDownload = filename.replace(/_/g, ' ');
+  const filePath = path.join(directoryPath, filenameForDownload + '.pdf');
 
   res.setHeader('Content-Disposition', 'inline');
   res.sendFile(filePath, (err) => {
