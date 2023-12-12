@@ -19,11 +19,17 @@ function Search({ onSuggestionSelect }) {
     <Suggestions medicines={medicines} onSuggestionClick={handleSuggestionClick} />
   ) : null;
 
-
   const fetchMedicines = async (query) => {
+    console.log('Fetching medicines for:', query);
     setLoading(true);
     try {
-      const response = await fetch('/search?q=Product_name:' + encodeURIComponent(query));
+      const response = await fetch('/generalSearch', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ query })
+      });
       const data = await response.json();
       console.log(data);
       setMedicines(data);
@@ -61,7 +67,7 @@ function Search({ onSuggestionSelect }) {
           type="text"
           id="medicine-search"
           name="search"
-          placeholder="Enter a medicine name"
+          placeholder="Pesquisa"
           value={searchQuery}
           onChange={handleInputChange}
         />
