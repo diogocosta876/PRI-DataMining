@@ -22,9 +22,9 @@ if __name__ == "__main__":
         Duracao_do_Tratamento = document.get("Duracao_do_Tratamento", "")
         Generico = document.get("Generico", "")
         Product_name = document.get("Product_name", "")
-        Substancia_Ativa_DC = document.get("Substancia_Ativa_DC", "")
+        Substancia_Ativa_DCI = document.get("Substancia_Ativa_DCI", "")
 
-        combined_text = Antes_de_utilizar + " " + O_que_e_e_para_que_e_utilizado + " " + Vias_de_Administracao + " " + Duracao_do_Tratamento + " " + Generico + " " + Product_name + " " + Substancia_Ativa_DC
+        combined_text = Antes_de_utilizar + " " + O_que_e_e_para_que_e_utilizado + " " + Vias_de_Administracao + " " + Duracao_do_Tratamento + " " + Generico + " " + Product_name + " " + Substancia_Ativa_DCI
         document["vector"] = get_embedding(combined_text)
 
     # Output updated JSON to STDOUT

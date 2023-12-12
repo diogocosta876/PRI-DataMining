@@ -4,13 +4,15 @@ Passos no Solr:
 docker run -p 8983:8983 --name infomed -v ${PWD}:/data -d solr:9.3 solr-precreate medicines
 
 
-
+Para a milestone3: (schema tem a parte dos vectors))
 curl -X POST -H 'Content-type:application/json' \
---data-binary "@simple_schema.json" \
+--data-binary "@schema_with_embeddings.json" \
 "http://localhost:8983/solr/medicines/schema"
 
+cat sample_combined_medication_data.json | python3 get_embeddings.py > semantic_medicines.json
+
 curl -X POST -H 'Content-type:application/json' \
---data-binary "@sample_combined_medication_data.json" \
+--data-binary "@semantic_medicines.json" \
 "http://localhost:8983/solr/medicines/update?commit=true"
 
 Tutorial Semantic Search:
