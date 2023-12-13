@@ -1,0 +1,22 @@
+dor => analgesia, molesta, adenalgia, astralgia, aflição, dolência, sofrimento
+
+tratamento => terapêutica, terapia, procedimento
+
+gravidez => embaraço, gestação, prenhez, prenhidão
+
+amamentação => aleitação, aleitamento, lactação
+
+precaução => cautela, circunspeção, cuidado, prevenção, prudência, segurança
+
+urinar => mictar
+
+comer => ingerir
+
+tomar => consumir, usar
+
+intravenoso => injetável
+
+efeitos => consequências
+
+efeito => consequência
+
