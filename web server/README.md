@@ -4,13 +4,18 @@
 
 - Initialize Solr Container
 
-### Start up backend server with nodemon for hot reloading
+### Start up nodejs backend server for REST API  (with nodemon for hot reloading)
 - cd "web server"
 - yarn install
 - npm run dev
 
+### Start up flask backend server to generate semantic embeddings
+- cd "web server/flask"
+- pip install sentence-transformers
+- python3 generate_embeddings.py
+
 ### Start up react frontend
-- cd react-app
+- cd "web server/react-app"
 - yarn install
 - npm start
 
