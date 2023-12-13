@@ -5,6 +5,7 @@ tratamento => terapeutica, terapia, procedimento
 gravidez => embaraço, gestacao, prenhez, prenhidao
 
 amamentacao => aleitacao, aleitamento, lactacao
+amamentar => aleitar, lactar
 
 precaucao => cautela, circunspecao, cuidado, prevencao, prudencia, seguranca
 
