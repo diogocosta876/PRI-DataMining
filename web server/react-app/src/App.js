@@ -4,6 +4,8 @@ import Search from './components/Search';
 import CustomQueries from './components/CustomQueries';
 import Sidebar from './components/Sidebar';
 import CustomQuerySidebar from './components/CustomQuerySidebar';
+import logo from './assets/logo.png'; // Adjust the path according to your project structure
+
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -36,7 +38,7 @@ function App() {
       <div className="background-image"></div>
       <div className="overlay"></div>
       <div className="container">
-        <h1 className="title">Pesquisa<span className="heart">♥</span>Med</h1>
+        <img src={logo} alt="Logo" className="logo" />
         <Search onSuggestionSelect={handleSuggestionClick}/>
       </div>
       <CustomQueries onQuerySelect={handleQuerySelect} />

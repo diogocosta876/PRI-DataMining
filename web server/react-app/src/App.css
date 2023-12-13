@@ -28,16 +28,6 @@ body, html {
   text-align: center;
 }
 
-.title {
-  font-size: 48px;
-  font-weight: 400;
-  color: white;
-}
-
-.heart {
-  color: red;
-}
-
 .sidebar {
   z-index: 1;
 }
