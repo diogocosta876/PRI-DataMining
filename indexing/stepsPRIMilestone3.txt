@@ -30,3 +30,6 @@ cat sample_combined_medication_data.json | python3 get_embeddings.py > semantic_
 
 Filters especias:
 solr.SnowballPorterFilterFactory
+
+
+Vias_de_Administracao:"Uso oftálmico" AND (Duracao_do_Tratamento:"Média Duração"~2 OR Duracao_do_Tratamento:"Curta Duração"^2) AND Generico:Não

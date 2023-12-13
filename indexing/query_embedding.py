@@ -13,9 +13,9 @@ def solr_knn_query(endpoint, collection, embedding):
     url = f"{endpoint}/{collection}/select"
 
     data = {
-        "q": f"{{!knn f=vector topK=3}}{embedding}",
+        "q": f"{{!knn f=vector topK=10}}{embedding}",
         "fl": "Antes_de_utilizar,O_que_e_e_para_que_e_utilizado,Vias_de_Administracao,Duracao_do_Tratamento,Generico,Product_name,Substancia_Ativa_DCI",
-        "rows": 3,
+        "rows": 10,
         "wt": "json"
     }
     
@@ -43,6 +43,7 @@ def main():
     
     query_text = input("Enter your query: ")
     embedding = text_to_embedding(query_text)
+    print(f"Query embedding: {embedding}")
 
     try:
         results = solr_knn_query(solr_endpoint, collection, embedding)

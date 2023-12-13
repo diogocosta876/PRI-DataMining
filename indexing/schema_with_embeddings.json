@@ -10,7 +10,9 @@
                 "filters":[
                     {"class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true},
                     {"class":"solr.LowerCaseFilterFactory"},
-                    {"class":"solr.SnowballPorterFilterFactory"}
+                    {"class":"solr.SnowballPorterFilterFactory"},
+                    {"class": "solr.SynonymGraphFilterFactory", "synonyms": "synonyms.txt", "ignoreCase": "true", "expand": "false"},
+                    {"class":"solr.StopFilterFactory",  "words": "stopwords.txt", "ignoreCase": "true", "format": "snowball"}
                 ]
             },
             "queryAnalyzer":{
@@ -20,7 +22,9 @@
                 "filters":[
                     {"class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true},
                     {"class":"solr.LowerCaseFilterFactory"},
-                    {"class":"solr.SnowballPorterFilterFactory"}
+                    {"class":"solr.SnowballPorterFilterFactory"},
+                    {"class": "solr.SynonymGraphFilterFactory", "synonyms": "synonyms.txt", "ignoreCase": "true", "expand": "false"},
+                    {"class":"solr.StopFilterFactory",  "words": "stopwords.txt", "ignoreCase": "true", "format": "snowball"}
                 ]
             }
         },
