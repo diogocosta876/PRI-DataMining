@@ -9,6 +9,10 @@ def load_data(filename):
 
 def choose_data(oldData, numberitems):
     mandatory_files = ["Dancor", "Colroset", "Aspifox", "Claritromicina Azevedos"]
+    mandatory_files += ['Allergodil', 'Azyter', 'Bendalina'] 
+    mandatory_files += ['Doloflux', 'Dioflav', 'Daflon 1000', 'Daflon 500', 'Dioflav 1000'] 
+    mandatory_files += ['Clotrimazol Generis', 'Clotrimazol Labesfal', 'Aciclovir Livixon'] 
+    mandatory_files += ['Almogran', 'Almotriptano Galenicum', 'Aspirina', 'Doxican', 'Aas', 'Aspegic 500', 'Algik Noite'] 
 
     mandatoryData = [item for item in oldData if item["Product_name"] in mandatory_files]
     ramdomData = [item for item in oldData if "O_que_e_e_para_que_e_utilizado" in item and item["Product_name"] not in mandatory_files]
@@ -26,4 +30,4 @@ def choose_data(oldData, numberitems):
 data = load_data('indexing/combined_medication_data.json')
 
 
-choose_data(data, 30)
+choose_data(data, 60)
