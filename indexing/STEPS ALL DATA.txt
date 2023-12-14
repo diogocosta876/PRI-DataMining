@@ -12,3 +12,36 @@ curl -X POST -H 'Content-type:application/json' \
 curl -X POST -H 'Content-type:application/json' \
 --data-binary "@combined_medication_data.json" \
 "http://localhost:8983/solr/medicines/update?commit=true"
+
+Sugestões:
+
+curl -X POST -H 'Content-type:application/json' -d '{                                      
+  "add-searchcomponent": {
+    "name": "suggest",
+    "class": "solr.SuggestComponent",
+    "suggester": {
+      "name": "mySuggester",
+      "lookupImpl": "FuzzyLookupFactory",
+      "dictionaryImpl": "DocumentDictionaryFactory",
+      "field": "Product_name",
+      "suggestAnalyzerFieldType": "medicinesType", 
+      "exactMatchFirst": "true",
+      "buildOnStartup": "true"
+    }
+  }
+}' "http://localhost:8983/solr/medicines/config"
+
+
+curl -X POST -H 'Content-type:application/json' -d '{
+  "add-requesthandler": {
+    "name": "/suggest",
+    "class": "solr.SearchHandler",
+    "startup": "lazy",
+    "defaults": {
+      "suggest": true,
+      "suggest.count": 3,
+      "suggest.dictionary": "mySuggester"
+    },
+    "components": ["suggest"]
+  }
+}' "http://localhost:8983/solr/medicines/config"
