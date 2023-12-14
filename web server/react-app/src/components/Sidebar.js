@@ -9,19 +9,35 @@ const Sidebar = ({ isOpen, closeSidebar, medicine }) => {
       const url = `http://localhost:3001/download/${encodeURIComponent(fileName)}`;
       window.open(url, '_blank');
     };
-  
 
+    // Function to render highlights
+    const renderHighlights = () => {
+      const highlights = medicine?.highlight;
+      if (!highlights) return null;
+
+      return Object.keys(highlights).map((key) => (
+        <div key={key} className="sidebar-highlight">
+          <h4>{key.replace(/_/g, ' ')}</h4>
+          {highlights[key].map((item, index) => (
+            <p key={index} dangerouslySetInnerHTML={{ __html: item }} />
+          ))}
+        </div>
+      ));
+    };
+  
     return (
       <div className={sidebarClass}>
         <div className="sidebar-header">
           <button onClick={closeSidebar} className="close-button">&larr;</button>
-          <h2 className="sidebar-title">{medicine?.name}</h2>
+          <h2 className="sidebar-title2">{medicine?.name}</h2>
         </div>
         <div className="sidebar-content">
-          <p><strong>Nº Processo:</strong> {medicine?.processNumber}</p>
-          <div className='col-item'><strong>Laboratório Responsável</strong> {medicine?.marketingAuthorizationHolder}</div>
-          <div className='col-item'><strong>Substância(s) Ativa(s)</strong> {medicine?.activeSubstance}</div>
-          
+          <div className="sidebar-section">
+            <h3>Informação</h3>
+            <p><strong>Nº Processo:</strong> {medicine?.processNumber}</p>
+            <div className='col-item'><strong>Laboratório Responsável</strong> {medicine?.marketingAuthorizationHolder}</div>
+            <div className='col-item'><strong>Substância(s) Ativa(s)</strong> {medicine?.activeSubstance}</div>
+          </div>
           <div className="sidebar-section">
             <h3>Detalhes</h3>
             <p><strong>Forma Farmacêutica:</strong> {medicine?.pharmaceuticalForm}</p>
@@ -29,7 +45,6 @@ const Sidebar = ({ isOpen, closeSidebar, medicine }) => {
             <p><strong>Início de Produção:</strong> {medicine?.date}</p>
           </div>
           
-          {/* Indications Section */}
           <div className="sidebar-section">
             <h3>Indicações</h3>
             <div className="row-item">
@@ -41,10 +56,13 @@ const Sidebar = ({ isOpen, closeSidebar, medicine }) => {
                 <div className='col-item'><strong>Restrições:</strong> {medicine?.classificationRegardingDispensation}</div>
             </div>
           </div>
-          
-         
-          
-          <p><strong>Menor Preço de Comercialização: </strong> {medicine?.lowestPVP !== 'Not Available' ? `${ medicine?.lowestPVP}€` : 'Not Available'}</p>
+        </div>
+        <strong className='price-label'>Menor Preço de Comercialização:  
+          <span className='price'>{medicine?.lowestPVP !== 'Not Available' ? `${ medicine?.lowestPVP}€` : 'Not Available'}</span>
+        </strong>
+        <h3>Highlights</h3>
+        <div className='highlights-section'>
+          {renderHighlights()}
         </div>
         <div className="sidebar-footer">
           <button className="info-button" onClick={handleDownload}>Bula Informativa</button>

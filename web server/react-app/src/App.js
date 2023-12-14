@@ -21,7 +21,7 @@ function App() {
   const [medicines, setMedicines] = useState([]);
 
 
-  const handleSuggestionClick = (medicine) => {
+  const handleMedicineClick = (medicine) => {
     setSelectedMedicine(medicine);
     setIsSidebarOpen(true);
   };
@@ -55,11 +55,10 @@ function App() {
       <div className="container">
         <img src={logo} alt="Logo" className="logo" />
         <Search 
-        onSuggestionSelect={handleSuggestionClick}
         adminRoute={adminRoute}
         onMedicinesUpdate={handleMedicinesUpdate}
         />
-        <SearchResults sortBy={sortBy} medicines={medicines} />
+        <SearchResults sortBy={sortBy} medicines={medicines} onMedicineClick={handleMedicineClick} />
       </div>
       <section className="left-sidebar">
         <Filters 

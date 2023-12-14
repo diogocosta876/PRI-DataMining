@@ -1,7 +1,7 @@
 import React from 'react';
 import './SearchResults.css'; // Make sure to create a corresponding CSS file
 
-const SearchResults = ({ medicines, sortBy }) => {
+const SearchResults = ({ medicines, sortBy, onMedicineClick }) => {
 
   const sortMedicines = (a, b) => {
     switch (sortBy) {
@@ -27,11 +27,12 @@ const SearchResults = ({ medicines, sortBy }) => {
   return (
     <div className="search-results">
       {medicines.map((medicine, index) => {
+        const rowNum = Math.floor(index / 3);
         const beforeUseInfo = medicine.highlight?.Antes_de_utilizar?.[0] ?? 
                               medicine.highlight?.[0];
   
         return (
-          <div key={index} className="medicine-card">
+            <div key={index} className="medicine-card" style={{ '--row-number': rowNum }} onClick={() => onMedicineClick(medicine)}> 
             <div className="medicine-card-name">{medicine.name}</div>
             <div className={`medicine-card-description ${!beforeUseInfo ? 'no-highlights' : ''}`}
                  dangerouslySetInnerHTML={{ __html: beforeUseInfo || 'No highlights' }}>

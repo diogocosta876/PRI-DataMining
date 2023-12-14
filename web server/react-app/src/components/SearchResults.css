@@ -17,9 +17,19 @@
     min-height: 150px;
     display: flex; 
     flex-direction: column; 
-    justify-content: space-between; 
+    justify-content: space-between;
+    transform: scale(1); 
+    cursor: pointer; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInUp 0.5s ease forwards; 
+    animation-delay: calc(var(--row-number) * 0.3s);
   }
   
+  .medicine-card:hover {
+    transform: scale(1.2); /* Slightly increase the card size on hover */
+    box-shadow: 0 5px 20px rgb(251, 250, 250, 0.8); /* Increase the shadow size for a "lift" effect */
+  }
+
   .medicine-card-name {
     font-size: 1.3em; 
     font-weight: bold;
@@ -69,4 +79,21 @@
     color: #fff; 
     padding: 2px 8px; 
     border-radius: 4px; 
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0); 
+    }
+  }
+  
+  .medicine-card {
+    opacity: 0; 
+    animation: fadeInUp 0.5s ease forwards; 
+    animation-delay: calc(var(--row-number) * 0.3s);
   }
