@@ -12,7 +12,8 @@
                     {"class":"solr.LowerCaseFilterFactory"},
                     {"class": "solr.SynonymGraphFilterFactory", "synonyms": "synonyms.txt", "ignoreCase": "true", "expand": "true"},
                     {"class":"solr.StopFilterFactory",  "words": "stopwords.txt", "ignoreCase": "true", "format": "snowball"},
-                    {"class":"solr.SnowballPorterFilterFactory"}
+                    {"class":"solr.SnowballPorterFilterFactory"},
+                    {"class": "solr.EdgeNGramFilterFactory", "minGramSize": 2,"maxGramSize": 15}
                 ]
             },
             "queryAnalyzer":{
