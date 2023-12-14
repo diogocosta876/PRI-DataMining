@@ -50,10 +50,21 @@ function App() {
     fetchFacets();
   }, []); 
 
+  const updateMedicineClickCount = async (medicineId) => {
+    try {
+      const response = await fetch(`/click/${medicineId}`);
+      const data = await response.json();
+      console.log('Click count updated:', data);
+    } catch (error) {
+      console.error('Error updating medicine click count:', error);
+    }
+  };
   const handleMedicineClick = (medicine) => {
     setSelectedMedicine(medicine);
     setIsSidebarOpen(true);
+    updateMedicineClickCount(medicine.id); 
   };
+
   const handleQuerySelect = (data, query) => {
     setCustomQueryResults(data);
     setSelectedQuery(query);
