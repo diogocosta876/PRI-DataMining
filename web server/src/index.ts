@@ -48,6 +48,8 @@ interface Medicine {
 }
 
 
+
+
 const app = express();
 const port = 3001;
 
@@ -272,6 +274,24 @@ app.get('/morelikethis/:id', async (req, res) => {
   } catch (error) {
     console.error('Error querying Solr', error);
     res.status(500).send('Internal Server Error');
+  }
+});
+
+app.get('/getfacets', async (req, res) => {
+  const query_url = `http://localhost:8983/solr/medicines/select?defType=edismax&facet.field=Route_of_administration&facet=true&indent=true&q.op=OR&q=*%3A*&useParams=&wt=json`;
+
+  try {
+    console.log('Querying Solr:', query_url);
+    const solrResponse = await fetch(query_url);
+
+    let solrJson = await solrResponse.json();
+    solrJson = solrJson['facet_counts']['facet_fields']['Route_of_administration']
+
+    console.log('Response:', solrJson)
+    res.json(solrJson);
+  } catch (error) {
+    console.error('Error querying Solr:', error);
+    res.status(500).send('Error querying Solr');
   }
 });
 
