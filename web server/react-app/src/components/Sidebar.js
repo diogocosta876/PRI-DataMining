@@ -90,7 +90,7 @@ const Sidebar = ({ isOpen, closeSidebar, medicine }) => {
           {renderHighlights()}
         </div>
         <div className="more-like-this-section">
-          <h3>Similar Medicines</h3>
+          <h3>Medicamentos Semelhantes</h3>
           {renderMoreLikeThisResults()}
         </div>
         <div className="sidebar-footer">

@@ -33,9 +33,9 @@ const Filters = ({ onAdminRouteChange, onSortByChange, adminRoute, sortBy, filte
             value={sortBy}
             onChange={(e) => onSortByChange(e.target.value)}
           >
-            <option value="relevance">Relevance</option>
-            <option value="clicks">Clicks</option>
-            <option value="alphabetical">Price</option>
+            <option value="Relevance">Relevance</option>
+            <option value="Clicks">Clicks</option>
+            <option value="Price">Price</option>
           </select>
         </div>
       </div>

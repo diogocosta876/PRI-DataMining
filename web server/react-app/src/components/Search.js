@@ -4,15 +4,20 @@ import Loading from './Loading';
 import searchIcon from '../assets/search_icon.png';
 import './Search.css';
 
-function Search({ adminRoute, onMedicinesUpdate }) {
+function Search({ adminRoute, onMedicinesUpdate, sortBy }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(false);
 
   const fetchMedicines = async (query) => {
     console.log('adminRoute', adminRoute);
+    console.log('sortBy', sortBy);
+    let sort = sortBy;
     let admin_route = adminRoute;
     if (adminRoute === 'all') {
       admin_route = '';
+    }
+    if (query === '') {
+      return;
     }
     setLoading(true);
     try {
@@ -21,10 +26,10 @@ function Search({ adminRoute, onMedicinesUpdate }) {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ query, admin_route })
+        body: JSON.stringify({ query, admin_route, sort })
       });
       const data = await response.json();
-      onMedicinesUpdate(data); // This will update the state in the parent component
+      onMedicinesUpdate(data);
     } catch (error) {
       console.error('Error fetching medicines:', error);
     } finally {
@@ -34,20 +39,18 @@ function Search({ adminRoute, onMedicinesUpdate }) {
 
   const debouncedFetchMedicines = useCallback(
     debounce((nextQuery) => fetchMedicines(nextQuery), 300),
-    [adminRoute]
+    [adminRoute, sortBy] // Add sortBy as a dependency
   );
 
   useEffect(() => {
-    if (searchQuery) {
+    if (searchQuery || adminRoute || sortBy) {
       debouncedFetchMedicines(searchQuery);
+      onMedicinesUpdate([]); // Clear the list
     }
-    if (adminRoute){
-      onMedicinesUpdate([]);
-    }
-  }, [searchQuery, debouncedFetchMedicines]);
+  }, [searchQuery, adminRoute, sortBy, debouncedFetchMedicines]); // Add sortBy to the dependencies array
 
   const handleInputChange = (event) => {
-    onMedicinesUpdate([]); 
+    onMedicinesUpdate([]);
     setSearchQuery(event.target.value);
     debouncedFetchMedicines(event.target.value);
   };

@@ -17,8 +17,8 @@ function App() {
   const [customQueryResults, setCustomQueryResults] = useState([]);
   const [selectedQuery, setSelectedQuery] = useState("");
   const [activeSidebar, setActiveSidebar] = useState(null);
-  const [adminRoute, setAdminRoute] = useState('oral');
-  const [sortBy, setSortBy] = useState('relevance');
+  const [adminRoute, setAdminRoute] = useState('all');
+  const [sortBy, setSortBy] = useState('Relevance');
   const [medicines, setMedicines] = useState([]);
   const [facets, setFacets] = useState([]);
 
@@ -73,6 +73,7 @@ function App() {
     setAdminRoute(route);
   };
   const handleSortByChange = (sort) => {
+    console.log('Sort by changed to:', sort);
     setSortBy(sort);
   };
 
@@ -85,6 +86,7 @@ function App() {
         <img src={logo} alt="Logo" className="logo" />
         <Search 
         adminRoute={adminRoute}
+        sortBy={sortBy}
         onMedicinesUpdate={handleMedicinesUpdate}
         />
         <SearchResults sortBy={sortBy} medicines={medicines} onMedicineClick={handleMedicineClick} />

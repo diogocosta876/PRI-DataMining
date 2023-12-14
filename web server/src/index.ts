@@ -151,8 +151,6 @@ app.post('/generalSearch', async (req, res) => {
   let sorting = req.body['sort']; //sort - "Relevance" ou "Clicks" ou "Price"
   console.log("sort: ", sorting)
 
-  sorting = "Clicks";
-
   if(!sorting){
     sorting = ""
   }
