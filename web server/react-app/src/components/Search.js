@@ -9,6 +9,11 @@ function Search({ adminRoute, onMedicinesUpdate }) {
   const [loading, setLoading] = useState(false);
 
   const fetchMedicines = async (query) => {
+    console.log('adminRoute', adminRoute);
+    let admin_route = adminRoute;
+    if (adminRoute === 'all') {
+      admin_route = '';
+    }
     setLoading(true);
     try {
       const response = await fetch('/generalSearch', {
@@ -16,7 +21,7 @@ function Search({ adminRoute, onMedicinesUpdate }) {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ query, adminRoute })
+        body: JSON.stringify({ query, admin_route })
       });
       const data = await response.json();
       onMedicinesUpdate(data); // This will update the state in the parent component
@@ -35,6 +40,9 @@ function Search({ adminRoute, onMedicinesUpdate }) {
   useEffect(() => {
     if (searchQuery) {
       debouncedFetchMedicines(searchQuery);
+    }
+    if (adminRoute){
+      onMedicinesUpdate([]);
     }
   }, [searchQuery, debouncedFetchMedicines]);
 
