@@ -106,10 +106,16 @@ app.get('/search', async (req, res) => {
 
 app.post('/generalSearch', async (req, res) => {
   let query = req.body['query'];
-  let via_admin = req.body['admin_route'];
+  let via_admin = req.body['admin_route']; //Route_of_administration !em ingles
+  // Exemplo de via_admin = "Oral Use";
   console.log("via_admin: ", via_admin);
   const solrEndpoint = "http://localhost:8983/solr";
   const collection = "medicines";
+
+  if(!via_admin){
+    via_admin = ""
+  }
+
 
   const qf = "Antes_de_utilizar^2 O_que_e_e_para_que_e_utilizado^2 Vias_de_Administracao Duracao_do_Tratamento Generico Product_name^4 Substancia_Ativa_DCI^3 Grupo_de_Produto Classificacao_Quanto_a_Dispensa Como_utilizar Efeitos_secundarios Bula";
   const hf = "Antes_de_utilizar O_que_e_e_para_que_e_utilizado Como_utilizar Efeitos_secundarios Bula";
@@ -133,6 +139,13 @@ app.post('/generalSearch', async (req, res) => {
       "hl.fl":hf,
       "qs": "4"
     };
+
+    if( via_admin != ""){
+      via_admin = `Route_of_administration:"` + via_admin + `"`;
+      solrData["fq"] = via_admin;
+    }
+
+    console.log("Pedido", solrData)
 
     const solrResponse = await axios.post(solrUrl, qs.stringify(solrData), {
       headers: {
@@ -279,6 +292,8 @@ app.get('/morelikethis/:id', async (req, res) => {
   }
 });
 
+
+//call ine time in the beginning
 app.get('/getfacets', async (req, res) => {
   const query_url = `http://localhost:8983/solr/medicines/select?defType=edismax&facet.field=Route_of_administration&facet=true&indent=true&q.op=OR&q=*%3A*&useParams=&wt=json`;
 
