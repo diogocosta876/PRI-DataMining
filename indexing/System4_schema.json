@@ -10,9 +10,8 @@
                 "filters":[
                     {"class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true},
                     {"class":"solr.LowerCaseFilterFactory"},
-                    {"class": "solr.SynonymGraphFilterFactory", "synonyms": "synonyms.txt", "ignoreCase": "true", "expand": "true"},
-                    {"class":"solr.StopFilterFactory",  "words": "stopwords.txt", "ignoreCase": "true", "format": "snowball"},
-                    {"class":"solr.SnowballPorterFilterFactory"},
+                    {"class":"solr.StopFilterFactory",  "words": "stopwords.txt", "ignoreCase": "true"},
+                    {"class":"solr.SnowballPorterFilterFactory", "language":"Portuguese"},
                     {"class": "solr.EdgeNGramFilterFactory", "minGramSize": 2,"maxGramSize": 15}
                 ]
             },
@@ -23,9 +22,8 @@
                 "filters":[
                     {"class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true},
                     {"class":"solr.LowerCaseFilterFactory"},
-                    {"class": "solr.SynonymGraphFilterFactory", "synonyms": "synonyms.txt", "ignoreCase": "true", "expand": "false"},
-                    {"class":"solr.StopFilterFactory",  "words": "stopwords.txt", "ignoreCase": "true", "format": "snowball"},
-                    {"class":"solr.SnowballPorterFilterFactory"}
+                    {"class":"solr.StopFilterFactory",  "words": "stopwords.txt", "ignoreCase": "true"},
+                    {"class":"solr.SnowballPorterFilterFactory", "language":"Portuguese"}
                 ]
             }
         },
