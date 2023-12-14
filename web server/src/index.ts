@@ -104,20 +104,25 @@ app.post('/generalSearch', async (req, res) => {
   const collection = "medicines";
 
   try {
-    // Step 1: Get the embedding from the Python service
+    // Get the embedding from the Python service
     const embeddingResponse = await axios.post(pythonServiceUrl, { text: query });
     const embedding = embeddingResponse.data;
 
     // Convert the embedding to a string format expected by Solr
     const embeddingStr = "[" + embedding.join(",") + "]";
 
-    // Step 2: Use the embedding in the Solr query
+    // Use the embedding in the Solr query
     const solrUrl = `${solrEndpoint}/${collection}/select`;
     const solrData = {
-      q: `{!knn f=vector topK=3}${embeddingStr}`,
+      q: `{!knn f=vector topK=9}${embeddingStr}`,
       fl: "Antes_de_utilizar,O_que_e_e_para_que_e_utilizado,Vias_de_Administracao,Duracao_do_Tratamento,Generico,Product_name,Substancia_Ativa_DCI",
-      rows: 3,
-      wt: "json"
+      rows: 9,
+      wt: "json",
+     /*  "hl": "True",
+      "hl.method": "unified",
+      "hl.fl": "Antes_de_utilizar, O_que_e_e_para_que_e_utilizado, Vias_de_Administracao, Duracao_do_Tratamento, Generico, Product_name, Substancia_Ativa_DCI",
+      "hl.q": "Vias_de_Administracao:oftálmico",
+      "hl.usePhraseHighLighter": "True" */
     };
 
     const solrResponse = await axios.post(solrUrl, qs.stringify(solrData), {
@@ -128,6 +133,7 @@ app.post('/generalSearch', async (req, res) => {
 
     // Process the Solr response and send back the results
     if (solrResponse.status === 200) {
+      console.log('Solr response:', solrResponse.data.response);
       const searchResults = solrResponse.data.response.docs.map((doc: SolrDoc) => ({
         name: doc.Product_name[0],
         activeSubstance: doc.Active_substance,
