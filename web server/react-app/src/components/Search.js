@@ -39,9 +39,9 @@ function Search({ adminRoute, onMedicinesUpdate }) {
   }, [searchQuery, debouncedFetchMedicines]);
 
   const handleInputChange = (event) => {
-    onMedicinesUpdate([]); // Clear the medicines list
+    onMedicinesUpdate([]); 
     setSearchQuery(event.target.value);
-    debouncedFetchMedicines(event.target.value); // Call the debounced fetch function
+    debouncedFetchMedicines(event.target.value);
   };
 
   return (

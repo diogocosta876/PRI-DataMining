@@ -6,7 +6,8 @@ import Sidebar from './components/Sidebar';
 import CustomQuerySidebar from './components/CustomQuerySidebar';
 import Filters from './components/Filters';
 import SearchResults from './components/SearchResults';
-import logo from './assets/logo.png'; // Adjust the path according to your project structure
+import logo from './assets/logo.png';
+import { useEffect } from 'react';
 
 
 function App() {
@@ -19,7 +20,35 @@ function App() {
   const [adminRoute, setAdminRoute] = useState('oral');
   const [sortBy, setSortBy] = useState('relevance');
   const [medicines, setMedicines] = useState([]);
+  const [facets, setFacets] = useState([]);
 
+  useEffect(() => {
+    const fetchFacets = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/getfacets');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+
+        const truncatedData = data.slice(0, 30);
+
+        const result = {};
+        for (let i = 0; i < truncatedData.length; i += 2) {
+          const label = truncatedData[i];
+          const value = truncatedData[i + 1];
+          result[label] = value;
+        }
+
+        setFacets(result);
+        return result;
+      } catch (error) {
+        console.error("Failed to fetch facets: ", error.message);
+      }
+    };
+
+    fetchFacets();
+  }, []); 
 
   const handleMedicineClick = (medicine) => {
     setSelectedMedicine(medicine);
@@ -66,6 +95,7 @@ function App() {
          onSortByChange={handleSortByChange}
          adminRoute={adminRoute}
          sortBy={sortBy}
+         filters={facets}
         />
         <CustomQueries onQuerySelect={handleQuerySelect} />
       </section>

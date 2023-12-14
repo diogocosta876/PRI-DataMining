@@ -1,24 +1,29 @@
 // Filters.js
 import React from 'react';
-import './Filters.css'; // Make sure to create a corresponding CSS file
+import './Filters.css';
 
-const Filters = ({ onAdminRouteChange, onSortByChange, adminRoute, sortBy }) => {
+const Filters = ({ onAdminRouteChange, onSortByChange, adminRoute, sortBy, filters }) => {
+  if (!filters) {
+    return filters = [];
+  }
+
     return (
       <div className="filters-container">
-        {/* ... other filter groups */}
         <div className="filter-group">
           <label htmlFor="administration-route">Via de administração:</label>
           <select
-            id="administration-route"
-            name="administration-route"
-            value={adminRoute}
-            onChange={(e) => onAdminRouteChange(e.target.value)}
-          >
-            <option value="oral">Via Oral</option>
-            <option value="intravenous">Via Intravenosa</option>
-            <option value="via3">Via 3</option> {/* Replace "via3" with actual value */}
-            <option value="via4">Via 4</option> {/* Replace "via4" with actual value */}
-          </select>
+          id="administration-route"
+          name="administration-route"
+          value={adminRoute}
+          onChange={(e) => onAdminRouteChange(e.target.value)}
+        >
+          <option value="all">All</option>
+          {Object.keys(filters).map((key) => (
+            <option key={key} value={key}>
+              {`${key} (${filters[key]})`}
+            </option>
+          ))}
+        </select>
         </div>
         <div className="filter-group">
           <label htmlFor="sort-by">Sort by:</label>
@@ -30,7 +35,7 @@ const Filters = ({ onAdminRouteChange, onSortByChange, adminRoute, sortBy }) => 
           >
             <option value="relevance">Relevance</option>
             <option value="clicks">Clicks</option>
-            <option value="alphabetical">Alphabetical</option>
+            <option value="alphabetical">Price</option>
           </select>
         </div>
       </div>

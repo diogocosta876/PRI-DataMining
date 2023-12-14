@@ -1,8 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './Sidebar.css';
 
 const Sidebar = ({ isOpen, closeSidebar, medicine }) => {
+    const [moreLikeThisResults, setMoreLikeThisResults] = useState([]);
     const sidebarClass = isOpen ? "sidebar open" : "sidebar";
+
+    useEffect(() => {
+      if (isOpen && medicine?.id) {
+        fetchMoreLikeThis(medicine.id);
+      }
+    }, [isOpen, medicine]);
+
+    const fetchMoreLikeThis = async (id) => {
+      console.log('Fetching more like this...', id);
+      try {
+        const response = await axios.get(`http://localhost:3001/morelikethis/${id}`);
+        setMoreLikeThisResults(response.data);
+      } catch (error) {
+        console.error('Error fetching more like this:', error);
+      }
+    };
 
     const handleDownload = () => {
       const fileName = medicine?.name.replace(/\s+/g, '_'); // Replace spaces with underscores or however your files are named
@@ -10,7 +28,6 @@ const Sidebar = ({ isOpen, closeSidebar, medicine }) => {
       window.open(url, '_blank');
     };
 
-    // Function to render highlights
     const renderHighlights = () => {
       const highlights = medicine?.highlight;
       if (!highlights) return null;
@@ -21,6 +38,14 @@ const Sidebar = ({ isOpen, closeSidebar, medicine }) => {
           {highlights[key].map((item, index) => (
             <p key={index} dangerouslySetInnerHTML={{ __html: item }} />
           ))}
+        </div>
+      ));
+    };
+
+    const renderMoreLikeThisResults = () => {
+      return moreLikeThisResults.map((result, index) => (
+        <div key={index} className="more-like-this-result">
+          <h4>{result.name}</h4>
         </div>
       ));
     };
@@ -64,9 +89,14 @@ const Sidebar = ({ isOpen, closeSidebar, medicine }) => {
         <div className='highlights-section'>
           {renderHighlights()}
         </div>
+        <div className="more-like-this-section">
+          <h3>Similar Medicines</h3>
+          {renderMoreLikeThisResults()}
+        </div>
         <div className="sidebar-footer">
           <button className="info-button" onClick={handleDownload}>Bula Informativa</button>
         </div>
+        
       </div>
     );
   };

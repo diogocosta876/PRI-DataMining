@@ -288,7 +288,7 @@ app.get('/morelikethis/:id', async (req, res) => {
       "mlt.mintf": 1,
       "mlt.mindf": 1,
       "mlt.count": 6,
-      "rows": "6"
+      "rows": "5"
     };
 
     const solrResponse = await axios.post(solrUrl, qs.stringify(solrData), {
