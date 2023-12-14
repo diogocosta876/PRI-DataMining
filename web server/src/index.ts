@@ -104,18 +104,61 @@ app.get('/search', async (req, res) => {
   }
 });
 
+app.get('/click/:id', async (req, res) => {
+  const id = req.params.id || '';
+  const solrEndpoint = "http://localhost:8983/solr";
+  const collection = "medicines";
+
+  console.log("id:" , id)
+  try {
+    // Use the embedding in the Solr query
+    const solrUrl = `${solrEndpoint}/${collection}/update?commit=true`;
+    const update = {
+        "id": id,
+        "Clicks": {"inc": 1}
+      };
+    
+
+    const solrResponse = await axios.post(solrUrl, qs.stringify(update), {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    });
+
+    // Send the response back to the client
+    res.json(solrResponse['data']);
+
+
+  }catch (error) {
+    console.error('Error updating item counter', error);
+    res.status(500).send('Internal Server Error');
+  }
+
+});
+
 app.post('/generalSearch', async (req, res) => {
   let query = req.body['query'];
+
   let via_admin = req.body['admin_route']; //Route_of_administration !em ingles
   // Exemplo de via_admin = "Oral Use";
   console.log("via_admin: ", via_admin);
-  const solrEndpoint = "http://localhost:8983/solr";
-  const collection = "medicines";
 
   if(!via_admin){
     via_admin = ""
   }
 
+  // Exemplo de sort = "Price";
+  let sorting = req.body['sort']; //sort - "Relevance" ou "Clicks" ou "Price"
+  console.log("sort: ", sorting)
+
+
+  if(!sorting){
+    sorting = ""
+  }
+
+
+  const solrEndpoint = "http://localhost:8983/solr";
+  const collection = "medicines";
 
   const qf = "Antes_de_utilizar^2 O_que_e_e_para_que_e_utilizado^2 Vias_de_Administracao Duracao_do_Tratamento Generico Product_name^4 Substancia_Ativa_DCI^3 Grupo_de_Produto Classificacao_Quanto_a_Dispensa Como_utilizar Efeitos_secundarios Bula";
   const hf = "Antes_de_utilizar O_que_e_e_para_que_e_utilizado Como_utilizar Efeitos_secundarios Bula";
@@ -144,6 +187,20 @@ app.post('/generalSearch', async (req, res) => {
       via_admin = `Route_of_administration:"` + via_admin + `"`;
       solrData["fq"] = via_admin;
     }
+
+    if( sorting != ""){
+      if(sorting === "Relevance"){
+
+      }else if (sorting === "Price"){
+        solrData["sort"] = "Lowest_PVP ASC";
+      }
+      else if (sorting === "Clicks"){
+        solrData["sort"] = "Clicks DESC";
+      }
+
+    }
+
+
 
     console.log("Pedido", solrData)
 

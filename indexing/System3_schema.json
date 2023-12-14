@@ -169,6 +169,13 @@
             "name": "Bula",
             "type": "medicinesType",
             "indexed": true
+        },
+        {
+            "name": "Clicks",
+            "type": "pint",
+            "default": "0",
+            "indexed": false,
+            "stored": true
         }
 
     ]

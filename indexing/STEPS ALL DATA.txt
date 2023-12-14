@@ -6,7 +6,7 @@ docker run -p 8983:8983 --name infomed -v ${PWD}:/data -d solr:9.3 solr-precreat
 docker cp synonyms.txt infomed:/var/solr/data/medicines/conf/synonyms.txt
 docker cp stopwords.txt infomed:/var/solr/data/medicines/conf/stopwords.txt
 
-Para a milestone3: (schema tem a parte dos vectors))
+Para a milestone3: (schema tem a parte dos vectors)
 curl -X POST -H 'Content-type:application/json' \
 --data-binary "@System3_schema.json" \
 "http://localhost:8983/solr/medicines/schema"
@@ -23,7 +23,7 @@ curl -X POST -H 'Content-type:application/json' -d '{
   }
 }' "http://localhost:8983/solr/medicines/config"
 
-
+---------------------------------------
 
 curl -X POST -H 'Content-type:application/json' -d '{
   "add-searchcomponent": {
