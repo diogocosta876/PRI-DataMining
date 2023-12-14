@@ -43,6 +43,13 @@
             "indexed": true
         },
         {
+            "name": "name_suggest",
+            "type": "text_general",
+            "indexed": true,
+            "stored": true,
+            "multiValued": false
+        },
+        {
             "name": "Active_substance",
             "type": "medicinesType",
             "indexed": true
@@ -183,5 +190,9 @@
             "stored": true
         }
 
-    ]
+    ],
+    "add-copy-field": {
+        "source": "Product_Name",
+        "dest": "name_suggest"
+    }
 }

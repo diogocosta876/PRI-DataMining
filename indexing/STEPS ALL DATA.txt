@@ -23,8 +23,8 @@ curl -X POST -H 'Content-type:application/json' -d '{
       "name": "mySuggester",
       "lookupImpl": "FuzzyLookupFactory",
       "dictionaryImpl": "DocumentDictionaryFactory",
-      "field": "Product_name",
-      "suggestAnalyzerFieldType": "medicinesType", 
+      "field": "name_suggest",
+      "suggestAnalyzerFieldType": "text_general", 
       "exactMatchFirst": "true",
       "buildOnStartup": "true"
     }
