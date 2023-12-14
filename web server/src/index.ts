@@ -34,6 +34,7 @@ interface SolrDoc {
   id: string;
   Antes_de_utilizar: string;
   _version_: number;
+  highlighting: any;
 }
 
 interface SolrResponse {
@@ -41,6 +42,11 @@ interface SolrResponse {
     docs: SolrDoc[];
   };
 }
+interface Medicine {
+  name: string;
+ 
+}
+
 
 const app = express();
 const port = 3001;
@@ -104,20 +110,25 @@ app.post('/generalSearch', async (req, res) => {
   const collection = "medicines";
 
   try {
-    // Step 1: Get the embedding from the Python service
+    // Get the embedding from the Python service
     const embeddingResponse = await axios.post(pythonServiceUrl, { text: query });
     const embedding = embeddingResponse.data;
 
     // Convert the embedding to a string format expected by Solr
     const embeddingStr = "[" + embedding.join(",") + "]";
 
-    // Step 2: Use the embedding in the Solr query
+    // Use the embedding in the Solr query
     const solrUrl = `${solrEndpoint}/${collection}/select`;
     const solrData = {
-      q: `{!knn f=vector topK=3}${embeddingStr}`,
-      fl: "Antes_de_utilizar,O_que_e_e_para_que_e_utilizado,Vias_de_Administracao,Duracao_do_Tratamento,Generico,Product_name,Substancia_Ativa_DCI",
-      rows: 3,
-      wt: "json"
+      q: `{!knn f=vector topK=9}${embeddingStr}`,
+      "q.op": 'OR',
+      indent: 'true',
+      hl: 'true',
+      'hl.method': 'unified',
+      'hl.fl': 'Antes_de_utilizar, O_que_e_e_para_que_e_utilizado, Vias_de_Administracao, Duracao_do_Tratamento, Generico, Product_name, Substancia_Ativa_DCI',
+      'hl.q': 'Vias_de_Administracao:oftálmico',
+      'hl.usePhraseHighlighter': 'true',
+      useParams: ''
     };
 
     const solrResponse = await axios.post(solrUrl, qs.stringify(solrData), {
@@ -128,37 +139,55 @@ app.post('/generalSearch', async (req, res) => {
 
     // Process the Solr response and send back the results
     if (solrResponse.status === 200) {
-      const searchResults = solrResponse.data.response.docs.map((doc: SolrDoc) => ({
-        name: doc.Product_name[0],
-        activeSubstance: doc.Active_substance,
-        routeOfAdministration: doc.Route_of_administration,
-        productAuthorizationCountry: doc.Product_authorisation_country,
-        marketingAuthorizationHolder: doc.Marketing_authorisation_holder,
-        pharmacovigilanceSystemMasterFileLocation: doc.Pharmacovigilance_system_master_file_location,
-        pharmacovigilanceEnquiriesEmailAddress: doc.Pharmacovigilance_enquiries_email_address,
-        pharmacovigilanceEnquiriesTelephoneNumber: doc.Pharmacovigilance_enquiries_telephone_number,
-        lowestPVP: doc.Lowest_PVP,
-        activeSubstanceDCI: doc.Substancia_Ativa_DCI,
-        pharmaceuticalForm: doc.Forma_Farmaceutica,
-        dosage: doc.Dosagem,
-        holderOfAIM: doc.Titular_de_AIM,
-        generic: doc.Generico,
-        routesOfAdministration: doc.Vias_de_Administracao,
-        processNumber: doc.Numero_de_Processo,
-        AIM: doc.AIM,
-        date: doc.Data,
-        classificationRegardingDispensation: doc.Classificacao_Quanto_a_Dispensa,
-        durationOfTreatment: doc.Duracao_do_Tratamento,
-        whatItIsAndWhatItIsUsedFor: doc.O_que_e_e_para_que_e_utilizado,
-        howToUse: doc.Como_utilizar,
-        sideEffects: doc.Efeitos_secundarios,
-        howToPreserve: doc.Como_conservar,
-        otherInformation: doc.Outras_informacoes,
-        id: doc.id,
-        beforeUsing: doc.Antes_de_utilizar,
-        version: doc._version_
-      }));
-
+      const highlighting = solrResponse.data.highlighting;
+      const docIds = Object.keys(highlighting); // Get document IDs
+      const searchResults = solrResponse.data.response.docs.map((doc, index) => {
+        // Construct the basic object from the doc
+        let result = {
+          name: doc.Product_name ? doc.Product_name[0] : '',
+          activeSubstance: doc.Active_substance || '',
+          routeOfAdministration: doc.Route_of_administration || '',
+          productAuthorizationCountry: doc.Product_authorisation_country || '',
+          marketingAuthorizationHolder: doc.Marketing_authorisation_holder || '',
+          pharmacovigilanceSystemMasterFileLocation: doc.Pharmacovigilance_system_master_file_location || '',
+          pharmacovigilanceEnquiriesEmailAddress: doc.Pharmacovigilance_enquiries_email_address || '',
+          pharmacovigilanceEnquiriesTelephoneNumber: doc.Pharmacovigilance_enquiries_telephone_number || '',
+          lowestPVP: doc.Lowest_PVP || '',
+          activeSubstanceDCI: doc.Substancia_Ativa_DCI || '',
+          pharmaceuticalForm: doc.Forma_Farmaceutica || '',
+          dosage: doc.Dosagem || '',
+          holderOfAIM: doc.Titular_de_AIM || '',
+          generic: doc.Generico || '',
+          routesOfAdministration: doc.Vias_de_Administracao || '',
+          processNumber: doc.Numero_de_Processo || '',
+          AIM: doc.AIM || '',
+          date: doc.Data || '',
+          classificationRegardingDispensation: doc.Classificacao_Quanto_a_Dispensa || '',
+          durationOfTreatment: doc.Duracao_do_Tratamento || '',
+          whatItIsAndWhatItIsUsedFor: doc.O_que_e_e_para_que_e_utilizado || '',
+          howToUse: doc.Como_utilizar || '',
+          sideEffects: doc.Efeitos_secundarios || '',
+          howToPreserve: doc.Como_conservar || '',
+          otherInformation: doc.Outras_informacoes || '',
+          id: doc.id || '',
+          beforeUsing: doc.Antes_de_utilizar || '',
+          version: doc._version_ || '',
+          highlight: null
+        };
+        
+        if (index < docIds.length) {
+          result.highlight = highlighting[docIds[index]];
+        } else {
+          result.highlight = null;
+        }
+        console.log("highglight: " , result["highlight"]);
+        return result;
+      });
+    
+      // Log search results for debugging purposes
+      console.log("Medicines found:", searchResults.map((medicine) => medicine.name));
+    
+      // Send the response back to the client
       res.json(searchResults);
     } else {
       throw new Error(`Solr responded with status: ${solrResponse.status}`);

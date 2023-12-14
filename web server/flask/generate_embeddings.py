@@ -9,6 +9,7 @@ model = SentenceTransformer("all-MiniLM-L6-v2")
 def generate_embedding():
     text = request.json.get("text")
     embedding = model.encode(text, convert_to_tensor=False).tolist()
+    print(embedding)
     return jsonify(embedding)
 
 
