@@ -3,6 +3,8 @@ Passos no Solr:
 
 docker run -p 8983:8983 --name infomed -v ${PWD}:/data -d solr:9.3 solr-precreate medicines
 
+docker cp synonyms.txt infomed:/var/solr/data/medicines/conf/synonyms.txt
+docker cp stopwords.txt infomed:/var/solr/data/medicines/conf/stopwords.txt
 
 Para a milestone3: (schema tem a parte dos vectors))
 curl -X POST -H 'Content-type:application/json' \
@@ -12,6 +14,18 @@ curl -X POST -H 'Content-type:application/json' \
 curl -X POST -H 'Content-type:application/json' \
 --data-binary "@combined_medication_data.json" \
 "http://localhost:8983/solr/medicines/update?commit=true"
+
+curl -X POST -H 'Content-type:application/json' -d '{
+  "add-requesthandler": {
+    "name": "/mlt",
+    "class": "solr.MoreLikeThisHandler",
+    "defaults": {"mlt.fl": "Product_name Substancia_Ativa_DCI", "mlt.mintf": 1, "mlt.mindf": 1}
+  }
+}' "http://localhost:8983/solr/medicines/config"
+
+
+
+----------------------------
 
 Sugestões:
 

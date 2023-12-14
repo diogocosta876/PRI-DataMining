@@ -103,32 +103,31 @@ app.get('/search', async (req, res) => {
 });
 
 app.post('/generalSearch', async (req, res) => {
-  const { query } = req.body;
-
-  const pythonServiceUrl = 'http://127.0.0.1:5600/generate_embedding';
+  let query = req.body['query'];
   const solrEndpoint = "http://localhost:8983/solr";
   const collection = "medicines";
 
-  try {
-    // Get the embedding from the Python service
-    const embeddingResponse = await axios.post(pythonServiceUrl, { text: query });
-    const embedding = embeddingResponse.data;
+  const qf = "Antes_de_utilizar^2 O_que_e_e_para_que_e_utilizado^2 Vias_de_Administracao Duracao_do_Tratamento Generico Product_name^4 Substancia_Ativa_DCI^3 Grupo_de_Produto Classificacao_Quanto_a_Dispensa Como_utilizar Efeitos_secundarios Bula";
+  const hf = "Antes_de_utilizar O_que_e_e_para_que_e_utilizado Como_utilizar Efeitos_secundarios Bula";
 
-    // Convert the embedding to a string format expected by Solr
-    const embeddingStr = "[" + embedding.join(",") + "]";
+  try {
 
     // Use the embedding in the Solr query
     const solrUrl = `${solrEndpoint}/${collection}/select`;
+
+    console.log('Searchin with:', query)
+
     const solrData = {
-      q: `{!knn f=vector topK=9}${embeddingStr}`,
-      "q.op": 'OR',
-      indent: 'true',
-      hl: 'true',
-      'hl.method': 'unified',
-      'hl.fl': 'Antes_de_utilizar, O_que_e_e_para_que_e_utilizado, Vias_de_Administracao, Duracao_do_Tratamento, Generico, Product_name, Substancia_Ativa_DCI',
-      'hl.q': 'Vias_de_Administracao:oftálmico',
-      'hl.usePhraseHighlighter': 'true',
-      useParams: ''
+      "q": query,
+      "defType": "edismax",
+      "indent": "true",
+      "q.op": "OR",
+      "qf": qf,
+      "rows": "20",
+      "hl":"true",
+      "hl.method":"unified",
+      "hl.fl":hf,
+      "qs": "4"
     };
 
     const solrResponse = await axios.post(solrUrl, qs.stringify(solrData), {
@@ -172,15 +171,9 @@ app.post('/generalSearch', async (req, res) => {
           id: doc.id || '',
           beforeUsing: doc.Antes_de_utilizar || '',
           version: doc._version_ || '',
-          highlight: null
+          highlight: highlighting[doc.id] || ''
         };
         
-        if (index < docIds.length) {
-          result.highlight = highlighting[docIds[index]];
-        } else {
-          result.highlight = null;
-        }
-        console.log("highglight: " , result["highlight"]);
         return result;
       });
     
@@ -193,7 +186,91 @@ app.post('/generalSearch', async (req, res) => {
       throw new Error(`Solr responded with status: ${solrResponse.status}`);
     }
   } catch (error) {
-    console.error('Error querying Solr or generating embeddings:', error);
+    console.error('Error querying Solr', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+app.get('/morelikethis/:id', async (req, res) => {
+  const id = req.params.id || '';
+  const solrEndpoint = "http://localhost:8983/solr";
+  const collection = "medicines";
+
+  const qf = "Antes_de_utilizar^2 O_que_e_e_para_que_e_utilizado^2 Vias_de_Administracao Duracao_do_Tratamento Generico Product_name^4 Substancia_Ativa_DCI^3 Grupo_de_Produto Classificacao_Quanto_a_Dispensa Como_utilizar Efeitos_secundarios Bula";
+  const hf = "Antes_de_utilizar O_que_e_e_para_que_e_utilizado Como_utilizar Efeitos_secundarios Bula";
+
+  try {
+
+    // Use the embedding in the Solr query
+    const solrUrl = `${solrEndpoint}/${collection}/mlt`;
+
+    console.log('Searchin mlt with:', id)
+
+    const solrData = {
+      "q": "id:" + id,
+      "mlt": "true",
+      "mlt.fl": "Product_name Substancia_Ativa_DCI",
+      "mlt.mintf": 1,
+      "mlt.mindf": 1,
+      "mlt.count": 6,
+      "rows": "6"
+    };
+
+    const solrResponse = await axios.post(solrUrl, qs.stringify(solrData), {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    });
+
+    // Process the Solr response and send back the results
+    if (solrResponse.status === 200) {
+      const searchResults = solrResponse.data.response.docs.map((doc, index) => {
+        // Construct the basic object from the doc
+        let result = {
+          name: doc.Product_name ? doc.Product_name[0] : '',
+          activeSubstance: doc.Active_substance || '',
+          routeOfAdministration: doc.Route_of_administration || '',
+          productAuthorizationCountry: doc.Product_authorisation_country || '',
+          marketingAuthorizationHolder: doc.Marketing_authorisation_holder || '',
+          pharmacovigilanceSystemMasterFileLocation: doc.Pharmacovigilance_system_master_file_location || '',
+          pharmacovigilanceEnquiriesEmailAddress: doc.Pharmacovigilance_enquiries_email_address || '',
+          pharmacovigilanceEnquiriesTelephoneNumber: doc.Pharmacovigilance_enquiries_telephone_number || '',
+          lowestPVP: doc.Lowest_PVP || '',
+          activeSubstanceDCI: doc.Substancia_Ativa_DCI || '',
+          pharmaceuticalForm: doc.Forma_Farmaceutica || '',
+          dosage: doc.Dosagem || '',
+          holderOfAIM: doc.Titular_de_AIM || '',
+          generic: doc.Generico || '',
+          routesOfAdministration: doc.Vias_de_Administracao || '',
+          processNumber: doc.Numero_de_Processo || '',
+          AIM: doc.AIM || '',
+          date: doc.Data || '',
+          classificationRegardingDispensation: doc.Classificacao_Quanto_a_Dispensa || '',
+          durationOfTreatment: doc.Duracao_do_Tratamento || '',
+          whatItIsAndWhatItIsUsedFor: doc.O_que_e_e_para_que_e_utilizado || '',
+          howToUse: doc.Como_utilizar || '',
+          sideEffects: doc.Efeitos_secundarios || '',
+          howToPreserve: doc.Como_conservar || '',
+          otherInformation: doc.Outras_informacoes || '',
+          id: doc.id || '',
+          beforeUsing: doc.Antes_de_utilizar || '',
+          version: doc._version_ || '',
+          highlight: ''
+        };
+        
+        return result;
+      });
+    
+      // Log search results for debugging purposes
+      console.log("Medicines found in mlt:", searchResults.map((medicine) => medicine.name));
+    
+      // Send the response back to the client
+      res.json(searchResults);
+    } else {
+      throw new Error(`Solr responded with status: ${solrResponse.status}`);
+    }
+  } catch (error) {
+    console.error('Error querying Solr', error);
     res.status(500).send('Internal Server Error');
   }
 });
