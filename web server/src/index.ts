@@ -113,15 +113,15 @@ app.get('/click/:id', async (req, res) => {
   try {
     // Use the embedding in the Solr query
     const solrUrl = `${solrEndpoint}/${collection}/update?commit=true`;
-    const update = {
+    const update = [{
         "id": id,
-        "Clicks": {"inc": 1}
-      };
+        "Clicks": {inc: 1}
+      }];
     
 
-    const solrResponse = await axios.post(solrUrl, qs.stringify(update), {
+    const solrResponse = await axios.post(solrUrl, update, {
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/json'
       }
     });
 
@@ -151,6 +151,7 @@ app.post('/generalSearch', async (req, res) => {
   let sorting = req.body['sort']; //sort - "Relevance" ou "Clicks" ou "Price"
   console.log("sort: ", sorting)
 
+  sorting = "Clicks";
 
   if(!sorting){
     sorting = ""
