@@ -23,9 +23,24 @@ body, html {
 
 .container {
   position: absolute;
-  top: 18vh;
-  width: 100%;
+  top: 8vh;
+  width: 1500px;
   text-align: center;
+  margin-left: 400px;
+}
+
+.left-sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0; 
+  width: 350px; 
+  background: rgba(242, 242, 242, 0.85); 
+  text-align: center;
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .sidebar {

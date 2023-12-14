@@ -4,6 +4,8 @@ import Search from './components/Search';
 import CustomQueries from './components/CustomQueries';
 import Sidebar from './components/Sidebar';
 import CustomQuerySidebar from './components/CustomQuerySidebar';
+import Filters from './components/Filters';
+import SearchResults from './components/SearchResults';
 import logo from './assets/logo.png'; // Adjust the path according to your project structure
 
 
@@ -40,8 +42,12 @@ function App() {
       <div className="container">
         <img src={logo} alt="Logo" className="logo" />
         <Search onSuggestionSelect={handleSuggestionClick}/>
+        <SearchResults/>
       </div>
-      <CustomQueries onQuerySelect={handleQuerySelect} />
+      <section className="left-sidebar">
+        <Filters />
+        <CustomQueries onQuerySelect={handleQuerySelect} />
+      </section>
       <Sidebar
         isOpen={isSidebarOpen}
         closeSidebar={() => setIsSidebarOpen(false)}
