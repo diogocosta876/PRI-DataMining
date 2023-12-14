@@ -3,7 +3,7 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 20px; 
     padding: 20px; 
-    margin-top: 150px; 
+    margin-top: 100px; 
   }
     
   .medicine-card {
@@ -14,7 +14,7 @@
     width: 450px;
     text-align: left; 
     height: auto; 
-    min-height: 130px;
+    min-height: 150px;
     display: flex; 
     flex-direction: column; 
     justify-content: space-between; 
@@ -25,25 +25,43 @@
     font-weight: bold;
     color: #E63946;
     margin-bottom: 1px;
-    height: 15px;
+    height: 30px;
   }
   
   .medicine-card-description {
-    font-size: 1em; 
-    color: #333; 
+    font-size: 1em;
+    color: #333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    line-height: 1.4em;
+    max-height: 4.2em; /* 3 lines of text */
+    overflow-wrap: break-word;
   }
+  
+  /* Add a class for the case when there are no highlights */
+  .no-highlights {
+    color: #404040; /* Lighter color to indicate less importance */
+  }
+  
   
   .medicine-card-details {
     display: flex; 
     justify-content: space-between; 
     align-items: center;
     margin-top: 8px; 
+    max-height: 200px;
   }
   
   .medicine-card-route, .medicine-card-price {
     font-size: 1.1em; 
     font-weight: bold; 
     color: #333; 
+  }
+  .medicine-card-route{
+    
   }
   
   .medicine-card-price {
