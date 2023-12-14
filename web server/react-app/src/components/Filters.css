@@ -1,0 +1,37 @@
+/* Filters.css */
+.filters-container {
+    padding: 30px;
+    border-radius: 10px; 
+    text-align: left;
+  }
+  
+  .filters-title {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    color: #333;
+  }
+  
+  .filter-group {
+    margin-bottom: 30px; 
+  }
+  
+  .filter-group label {
+    display: block; 
+    margin-bottom: 5px; 
+    font-weight: bold; 
+    color: #333;
+    font-size: 18px;
+  }
+  
+  .filter-group select {
+    width: 100%; 
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px; 
+    font-size: 18px;
+  }
+  select:focus {
+    outline: none; /* Removes the default focus outline */
+    border: 1px solid #ccc; /* Keeps the border consistent with the non-focused state */
+  }
+  

@@ -58,8 +58,7 @@ function CustomQueries({ onQuerySelect }) {
       {queryData.map((item, index) => (
         <div key={index} className="query-card" onClick={() => handleQueryClick(item.query, item.title)}>
           <img src={questionIcon} alt="Query Icon" className="query-icon" />
-          <h3 className="query-title">{item.title}</h3>
-          <div className="query-subtext">*for medical professionals</div>
+          <span className="query-title">{item.title}</span>
         </div>
       ))}
     </section>
