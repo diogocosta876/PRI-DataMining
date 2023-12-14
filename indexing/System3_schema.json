@@ -1,13 +1,42 @@
 {
+	"add-field-type": [
+        {
+            "name":"medicinesType",
+            "class":"solr.TextField",
+            "indexAnalyzer":{
+                "tokenizer":{
+                    "class":"solr.StandardTokenizerFactory"
+                },
+                "filters":[
+                    {"class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true},
+                    {"class":"solr.LowerCaseFilterFactory"},
+                    {"class":"solr.StopFilterFactory",  "words": "stopwords.txt", "ignoreCase": "true"},
+                    {"class":"solr.SnowballPorterFilterFactory", "language":"Portuguese"}
+                ]
+            },
+            "queryAnalyzer":{
+                "tokenizer":{
+                    "class":"solr.StandardTokenizerFactory"
+                },
+                "filters":[
+                    {"class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true},
+                    {"class":"solr.LowerCaseFilterFactory"},
+                    {"class":"solr.StopFilterFactory",  "words": "stopwords.txt", "ignoreCase": "true"},
+                    {"class":"solr.SnowballPorterFilterFactory", "language":"Portuguese"}
+                ]
+            }
+        }
+
+    ],
     "add-field": [
         {
             "name": "Product_Name",
-            "type": "string",
+            "type": "medicinesType",
             "indexed": true
         },
         {
             "name": "Active_substance",
-            "type": "string",
+            "type": "medicinesType",
             "indexed": true
         },{
             "name": "Route_of_administration",
@@ -16,7 +45,7 @@
         },
         {
             "name": "Product_authorisation_country",
-            "type": "string",
+            "type": "medicinesType",
             "indexed": true
         },
         {
@@ -26,7 +55,7 @@
         },
         {
             "name": "Pharmacovigilance_system_master_file_location",
-            "type": "string",
+            "type": "medicinesType",
             "indexed": true
         },
         {
@@ -46,37 +75,37 @@
         },
         {
             "name": "Substancia_Ativa_DCI",
-            "type": "string",
+            "type": "medicinesType",
             "indexed": true
         },
         {
             "name": "Forma_Farmaceutica",
-            "type": "string",
+            "type": "medicinesType",
             "indexed": true
         },
         {
             "name": "Dosagem",
-            "type": "string",
+            "type": "medicinesType",
             "indexed": true
         },
         {
             "name": "Titular_de_AIM",
-            "type": "string",
+            "type": "medicinesType",
             "indexed": true
         },
         {
             "name": "Generico",
-            "type": "string",
+            "type": "medicinesType",
             "indexed": true
         },
         {
             "name": "Vias_de_Administracao",
-            "type": "string",
+            "type": "medicinesType",
             "indexed": true
         },
         {
             "name": "Grupo_de_Produto",
-            "type": "string",
+            "type": "medicinesType",
             "indexed": true
         },
         {
@@ -96,48 +125,49 @@
         },
         {
             "name": "Classificacao_Quanto_a_Dispensa",
-            "type": "string",
+            "type": "medicinesType",
             "indexed": true
         },
         {
             "name": "Duracao_do_Tratamento",
-            "type": "string",
+            "type": "medicinesType",
             "indexed": true
         },
         {
             "name": "O_que_e_e_para_que_e_utilizado",
-            "type": "string",
+            "type": "medicinesType",
             "indexed": true
         },
         {
             "name": "Antes_de_utilizar",
-            "type": "string",
+            "type": "medicinesType",
             "indexed": true
         },
         {
             "name": "Como_utilizar",
-            "type": "string",
+            "type": "medicinesType",
             "indexed": true
         },
         {
             "name": "Efeitos_secundarios",
-            "type": "string",
+            "type": "medicinesType",
             "indexed": true
         },
         {
             "name": "Como_conservar",
-            "type": "string",
+            "type": "medicinesType",
             "indexed": true
         },
         {
             "name": "Outras_informacoes",
-            "type": "string",
+            "type": "medicinesType",
             "indexed": true
         },
         {
             "name": "Bula",
-            "type": "string",
+            "type": "medicinesType",
             "indexed": true
         }
+
     ]
 }

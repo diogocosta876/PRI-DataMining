@@ -11,6 +11,7 @@ aquele
 aqueles
 aqui
 atrás
+atras
 cada
 com
 das
@@ -18,6 +19,7 @@ desde
 deve
 devem
 deverá
+devera
 diz
 dizer
 dos
@@ -29,10 +31,14 @@ eles
 em
 enquanto
 então
+entao
 está
+esta
 estão
+estao
 estar
 estará
+estara
 este
 estes
 esteve
@@ -41,6 +47,7 @@ estivemos
 estiveram
 eu
 fará
+fara
 faz
 fazer
 fazia
@@ -50,6 +57,7 @@ foi
 fora
 ir
 irá
+ira
 ista
 iste
 isto
@@ -61,6 +69,7 @@ muito
 muitos
 nome
 nós
+nos
 nosso
 novo
 o
@@ -75,6 +84,7 @@ pelo
 pessoas
 pode
 poderá
+podera
 podia
 por
 porque
@@ -93,12 +103,17 @@ seu
 somente
 tal
 também
+tambem
 tem
 têm
 tempo
 tenho
 tentar
 tentaram
+proteção
+protecao
+proteger
+protecao
 tente
 tentei
 teu
@@ -120,3 +135,8 @@ ver
 verdade
 verdadeiro
 você
+tomar
+consumir
+dever
+colocar
+coloco

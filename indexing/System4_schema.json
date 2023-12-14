@@ -10,8 +10,8 @@
                 "filters":[
                     {"class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true},
                     {"class":"solr.LowerCaseFilterFactory"},
-                    {"class":"solr.StopFilterFactory",  "words": "stopwords.txt", "ignoreCase": "true", "format": "snowball"},
-                    {"class":"solr.SnowballPorterFilterFactory"}
+                    {"class":"solr.StopFilterFactory",  "words": "stopwords.txt", "ignoreCase": "true"},
+                    {"class":"solr.SnowballPorterFilterFactory", "language":"Portuguese"}
                 ]
             },
             "queryAnalyzer":{
@@ -21,8 +21,8 @@
                 "filters":[
                     {"class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true},
                     {"class":"solr.LowerCaseFilterFactory"},
-                    {"class":"solr.StopFilterFactory",  "words": "stopwords.txt", "ignoreCase": "true", "format": "snowball"},
-                    {"class":"solr.SnowballPorterFilterFactory"}
+                    {"class":"solr.StopFilterFactory",  "words": "stopwords.txt", "ignoreCase": "true"},
+                    {"class":"solr.SnowballPorterFilterFactory", "language":"Portuguese"}
                 ]
             }
         },

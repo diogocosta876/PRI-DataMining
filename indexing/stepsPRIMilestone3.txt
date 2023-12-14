@@ -32,4 +32,14 @@ Filters especias:
 solr.SnowballPorterFilterFactory
 
 
-Vias_de_Administracao:"Uso oftálmico" AND (Duracao_do_Tratamento:"Média Duração"~2 OR Duracao_do_Tratamento:"Curta Duração"^2) AND Generico:Não
+
+
+
+curl -X POST -H 'Content-type:application/json' \
+--data-binary "@System4_schema.json" \
+"http://localhost:8983/solr/medicines/schema"
+
+curl -X POST -H 'Content-type:application/json' \
+--data-binary "@sample_combined_medication_data.json" \
+"http://localhost:8983/solr/medicines/update?commit=true"
+

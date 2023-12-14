@@ -1,0 +1,14 @@
+Passos no Solr:
+(Para Mac, tem de se pôr as aspas no url do Solr)
+
+docker run -p 8983:8983 --name infomed -v ${PWD}:/data -d solr:9.3 solr-precreate medicines
+
+
+Para a milestone3: (schema tem a parte dos vectors))
+curl -X POST -H 'Content-type:application/json' \
+--data-binary "@System3_schema.json" \
+"http://localhost:8983/solr/medicines/schema"
+
+curl -X POST -H 'Content-type:application/json' \
+--data-binary "@combined_medication_data.json" \
+"http://localhost:8983/solr/medicines/update?commit=true"

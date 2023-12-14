@@ -9,13 +9,16 @@ def text_to_embedding(text):
     embedding_str = "[" + ",".join(map(str, embedding)) + "]"
     return embedding_str
 
-def solr_knn_query(endpoint, collection, embedding):
+def solr_knn_query(endpoint, collection, embedding, topK=10):
     url = f"{endpoint}/{collection}/select"
 
+
+    query_fileds= "Antes_de_utilizar,O_que_e_e_para_que_e_utilizado,Vias_de_Administracao,Duracao_do_Tratamento,Generico,Product_name,Substancia_Ativa_DCI"
+
     data = {
-        "q": f"{{!knn f=vector topK=10}}{embedding}",
-        "fl": "Antes_de_utilizar,O_que_e_e_para_que_e_utilizado,Vias_de_Administracao,Duracao_do_Tratamento,Generico,Product_name,Substancia_Ativa_DCI",
-        "rows": 10,
+        "q": f"{{!knn f=vector topK={topK}}}{embedding}",
+        "fl": query_fileds,
+        "rows": topK,
         "wt": "json"
     }
     
@@ -50,6 +53,16 @@ def main():
         display_results(results)
     except requests.HTTPError as e:
         print(f"Error {e.response.status_code}: {e.response.text}")
+
+
+def get_response(query_text, topK=10):
+    solr_endpoint = "http://localhost:8983/solr"
+    collection = "medicines"
+    
+    embedding = text_to_embedding(query_text)
+    results = solr_knn_query(solr_endpoint, collection, embedding, topK=topK)
+    return results
+
 
 if __name__ == "__main__":
     main()
