@@ -106,6 +106,8 @@ app.get('/search', async (req, res) => {
 
 app.post('/generalSearch', async (req, res) => {
   let query = req.body['query'];
+  let via_admin = req.body['admin_route'];
+  console.log("via_admin: ", via_admin);
   const solrEndpoint = "http://localhost:8983/solr";
   const collection = "medicines";
 
