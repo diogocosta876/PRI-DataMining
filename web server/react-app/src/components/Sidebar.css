@@ -99,9 +99,10 @@
     font-size: 3em;
     text-align: center;
     margin: 20px;
-    margin-left: 620px;
+    margin-left: 605px;
     font-size: 35px;
     color: #ff6b6b;
+    transform: translateX(-50%);
   }
 
   .price-label{

@@ -24,7 +24,7 @@ const QueryResultSidebar = ({ isOpen, closeSidebar, queryResults, query, onMedic
           onChange={(e) => setFilter(e.target.value)}
         />
       </div>
-      <div className="sidebar-content">
+      <div className="sidebar-content-2">
         {filteredResults.map((result, index) => (
           <div key={index} className="query-result-item" onClick={() => onMedicineSelect(result)}>
             <span >{result.name}</span>
