@@ -58,7 +58,7 @@ function App() {
         adminRoute={adminRoute}
         onMedicinesUpdate={handleMedicinesUpdate}
         />
-        <SearchResults sortBy={sortBy} medicines={medicines} />
+        <SearchResults sortBy={sortBy} medicines={medicines} onMedicineClick={handleMedicineClick} />
       </div>
       <section className="left-sidebar">
         <Filters 
