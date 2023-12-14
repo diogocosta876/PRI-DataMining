@@ -5,25 +5,16 @@ import Loading from './Loading';
 import searchIcon from '../assets/search_icon.png';
 import './Search.css';
 
-function Search({ onSuggestionSelect }) {
+function Search({ onSuggestionSelect, adminRoute, onMedicinesUpdate }) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [medicines, setMedicines] = useState([]);
+  const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [displaySuggestions, setDisplaySuggestions] = useState(true);
 
-  const handleSuggestionClick = (medicine) => {
-    setSearchQuery(medicine.name);
-    onSuggestionSelect(medicine);
-  };
-  
-  const suggestionsComponent = medicines.length > 0 && !loading ? (
-    <Suggestions medicines={medicines} onSuggestionClick={handleSuggestionClick} />
-  ) : null;
-
-  const fetchMedicines = async (query) => {
-    console.log('Fetching medicines for:', query);
+  const fetchSuggestions = async (query) => {
     setLoading(true);
     try {
-      const response = await fetch('/generalSearch', {
+      const response = await fetch('/suggestions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -31,33 +22,49 @@ function Search({ onSuggestionSelect }) {
         body: JSON.stringify({ query })
       });
       const data = await response.json();
-      console.log(data);
-      setMedicines(data);
+      setSuggestions(data);
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error fetching suggestions:', error);
     }
     setLoading(false);
   };
 
-  // Use useCallback to memoize the debounced version of fetchMedicines
-  const debouncedFetchMedicines = useCallback(debounce(fetchMedicines, 500), []);
+  const debouncedFetchSuggestions = useCallback(
+    debounce(fetchSuggestions, 300),
+    [] 
+  );
+
+  const fetchMedicines = async (query) => {
+    try {
+      const response = await fetch('/generalSearch', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ query, adminRoute })
+      });
+      const data = await response.json();
+      onMedicinesUpdate(data);
+    } catch (error) {
+      console.error('Error fetching medicines:', error);
+    }
+  };
 
   useEffect(() => {
-    if (searchQuery.length < 2) {
-      setMedicines([]);
-      return;
+    if (searchQuery) {
+      debouncedFetchSuggestions(searchQuery);
     }
-
-    debouncedFetchMedicines(searchQuery);
-
-    return () => {
-      debouncedFetchMedicines.cancel();
-    };
-  }, [searchQuery, debouncedFetchMedicines]);
-
+  }, [searchQuery, debouncedFetchSuggestions]);
 
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      setDisplaySuggestions(false);
+      fetchMedicines(searchQuery);
+    }
   };
 
   return (
@@ -70,17 +77,20 @@ function Search({ onSuggestionSelect }) {
           placeholder="Pesquisa"
           value={searchQuery}
           onChange={handleInputChange}
+          onKeyPress={handleKeyPress}
         />
         <button id="search-button" className="icon-button">
           <img src={searchIcon} alt="Search" className="search-icon" />
         </button>
       </div>
-      {loading ? <Loading /> : suggestionsComponent}
+      {loading ? <Loading /> : (
+        <Suggestions 
+          medicines={suggestions}
+          onSuggestionClick={onSuggestionSelect} 
+        />
+      )}
     </div>
   );
 }
 
 export default Search;
-
-
-

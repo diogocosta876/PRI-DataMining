@@ -1,28 +1,39 @@
 import React from 'react';
 import './SearchResults.css'; // Make sure to create a corresponding CSS file
 
-const SearchResults = () => {
-  const medicines = [
-    { name: 'Medicine 1', description: 'Description 1' },
-    { name: 'Medicine 2', description: 'Description 2' },
-    { name: 'Medicine 3', description: 'Description 3' },
-    { name: 'Medicine 4', description: 'Description 4' },
-    { name: 'Medicine 5', description: 'Description 5' },
-    { name: 'Medicine 6', description: 'Description 6' },
-    { name: 'Medicine 7', description: 'Description 7' },
-    { name: 'Medicine 8', description: 'Description 8' },
-    { name: 'Medicine 9', description: 'Description 9' }
-  ];
+const SearchResults = ({ medicines, sortBy }) => {
+
+  const sortMedicines = (a, b) => {
+    switch (sortBy) {
+      case 'relevance':
+        // Sorting logic for relevance if you have such data
+        break;
+      case 'clicks':
+        // Sorting logic for clicks if you have such data
+        break;
+      case 'alphabetical':
+        return a.name.localeCompare(b.name);
+      default:
+        return 0;
+    }
+  };
+
+  if (sortBy) {
+    medicines.sort(sortMedicines);
+  }
+
+  console.log(sortBy);
 
   return (
     <div className="search-results">
       {medicines.map((medicine, index) => (
         <div key={index} className="medicine-card">
-            <div className="medicine-card-name">Aspifox</div>
-            <div className="medicine-card-description">Para que é utilizado: O aspifox é utilizado em muitos casos...dfsssssssssssssssssssssss saaaaaaaaaaaa</div>
+            <div className="medicine-card-name">{medicine.name}</div>
+            <div className="medicine-card-description">{medicine.description}</div>
+            {/* Assuming you have route and price data in your medicine objects */}
             <div className="medicine-card-details">
-                <span className="medicine-card-route">Via: Via oral</span>
-                <span className="medicine-card-price">PVP: 5€</span>
+                <span className="medicine-card-route">Via: {medicine.route}</span>
+                <span className="medicine-card-price">PVP: {medicine.price}</span>
             </div>
         </div>
       ))}
