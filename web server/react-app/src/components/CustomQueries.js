@@ -10,9 +10,9 @@ const queryData = [
     OR (Antes_de_utilizar:gravidez AND (Antes_de_utilizar:"grávida não"^2~4))`
   },
   {
-    title: 'Antibióticos mais adequados para uma infeção específica',
+    title: 'Antibióticos mais adequados para uma infeção maxilo-facial',
     query: `(O_que_e_e_para_que_e_utilizado:antibiotico)
-    AND (O_que_e_e_para_que_e_utilizado:infecao^2~4))
+    AND (O_que_e_e_para_que_e_utilizado:infecao^2~4)
     AND (O_que_e_e_para_que_e_utilizado:maxil* )`
   },
   {

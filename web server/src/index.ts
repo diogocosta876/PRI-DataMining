@@ -58,7 +58,7 @@ app.use(cors()); //enable cors
 
 app.get('/search', async (req, res) => {
   const query = req.query.q?.toString() || '';
-  const solrUrl = `http://localhost:8983/solr/medicines/select?q=${encodeURIComponent(query)}`;
+  const solrUrl = `http://localhost:8983/solr/medicines/select?q=${encodeURIComponent(query)}&rows=100`;
 
   try {
     console.log('Querying Solr:', query);
